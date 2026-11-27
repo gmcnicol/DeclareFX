@@ -166,4 +166,5 @@ Context7 quota was exhausted, so official sources were fetched directly:
 Compiler/CLI/golden tests and the independent arithmetic model are **not EEL2
 execution**, audio renders, automation recordings, GUI checks or performance
 measurements. Target REAPER 7.02+ has not been installed or run here. The exact
-numerical/manual host checklist remains in [the spec](implementation-spec.md).
+numerical/manual [host protocol](host-validation.md) remains entirely pending;
+[current automated evidence and CI status](proof-evidence.md) are separate.

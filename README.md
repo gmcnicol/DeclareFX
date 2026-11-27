@@ -5,8 +5,9 @@ Declare-authored interfaces for standalone JSFX, preserving hand-written EEL2 DS
 **Current status:** checked subset-v1 compilation, standalone JSFX emission,
 explicit CLI, safe regeneration and the complete gain example/golden are
 implemented and tested locally. No EEL2 execution or REAPER/audio validation is
-claimed; three-platform automated evidence and final Standards/Spec review remain
-pending. The [explicit numeric amendment](https://github.com/gmcnicol/DeclareFX/issues/6#issuecomment-7219873850)
+claimed. The three-platform [CI workflow and evidence handoff](docs/proof-evidence.md)
+are implemented but **awaiting the actual integration run**; final Standards/Spec
+review also remains pending. The [explicit numeric amendment](https://github.com/gmcnicol/DeclareFX/issues/6#issuecomment-7219873850)
 resolves the [numeric policy blocker](docs/numeric-blocker.md): UI arithmetic uses
 native EEL2 underflow, not promised JavaScript parity. Generated executable numbers
 use plain decimal notation; scientific numeric tokens in author DSP are diagnosed,
@@ -22,6 +23,7 @@ pnpm build
 pnpm check
 pnpm test
 pnpm verify:vendor
+pnpm evidence
 ```
 
 `build` cleans `dist/` and compiles TypeScript to Node ESM. `test` builds and runs
@@ -29,7 +31,9 @@ compiled tests using Node's built-in test/assert. No upstream checkout, compiler
 download or bundler is needed during builds. Do not use npm or silently update
 an incompatible lockfile. Tests verify artifact/notices, the pinned checked
 frontend, and the public target compiler's validation and static lowering—not
-EEL2 execution.
+EEL2 execution. `pnpm evidence` preserves actual tools/hashes, two clean relocated
+frozen installs/builds and golden bytes under ignored `proof-evidence/`; it does
+not run EEL2 or install/launch REAPER. CI also compares all three OS artifacts.
 
 ## Build the gain example
 
@@ -44,6 +48,8 @@ automatic. [Complete output/golden](examples/gain.jsfx).
 - [Standalone compiler, CLI, DSP and publication contracts](docs/emission.md)
 - [Compiler interface and target representation](docs/compiler.md)
 - [Implementation spec and ordered route](docs/implementation-spec.md)
-- [Actual groundwork checks and limitations](docs/groundwork-evidence.md)
+- [Current proof evidence, CI status and remaining gates](docs/proof-evidence.md)
+- [Real-host protocol — all checks pending](docs/host-validation.md)
+- [Historical groundwork checks and limitations](docs/groundwork-evidence.md)
 - [Third-party inventory and retained notices](THIRD_PARTY_NOTICES.md)
 - [Domain terminology](GLOSSARY.md)
