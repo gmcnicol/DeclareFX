@@ -198,6 +198,25 @@ test('compiler rejects statically invalid arithmetic and preserves lazy finite-e
   assert.ok(constant.diagnostics.some(d => d.category === 'numeric'));
 });
 
+test('compiler rejects ordinary fractional constant failures without evaluating untaken branches', async () => {
+  for (const expression of ['-0.5', '0.5 - 1', '1 / (0.5 - 0.5)', '1e308 / 0.5']) {
+    const result = await compile({ source: minimal(`width = { ${expression} }`), bindings, filename: 'fractions.declare' });
+    assert.equal(result.ok, false, expression);
+    assert.ok(result.diagnostics.some(d => d.category === 'numeric' && d.location?.file === 'fractions.declare'), expression);
+    for (const lazy of [`false ? ${expression} : 2`, `true ? 2 : ${expression}`,
+      `(false && (${expression} > 0)) ? 1 : 2`, `(true || (${expression} > 0)) ? 2 : 1`]) {
+      const accepted = await compile({ source: minimal(`width = { ${lazy} }`), bindings });
+      assert.equal(accepted.ok, true, `${lazy}: ${JSON.stringify(accepted.diagnostics)}`);
+    }
+  }
+  const propagated = await compile({
+    source: minimal('height = { app.half }, width = { this.height - 1 }')
+      .replace('gain: number = 1', 'gain: number = 1, half: number = 0.5'), bindings,
+  });
+  assert.equal(propagated.ok, false);
+  assert.ok(propagated.diagnostics.some(d => d.category === 'numeric'));
+});
+
 test('compiler defers underflow-sensitive values, branches and lazy operands to guarded native evaluation', async () => {
   for (const expression of [
     '1e-310 > 0 ? -1 : 2',
@@ -216,11 +235,23 @@ test('compiler defers underflow-sensitive values, branches and lazy operands to 
     const result = await compile({ source: ui, bindings });
     assert.equal(result.ok, true, `${expression}: ${JSON.stringify(result.diagnostics)}`);
   }
-  // Integer-only proofs still catch guaranteed failures, not Node underflow outcomes.
+  // Ordinary proofs still catch guaranteed failures, not Node underflow outcomes.
   for (const expression of ['1 / 0', 'app.gain / (2 - 2)', '1e308 * 1e308', 'true ? -1 : 2']) {
     const result = await compile({ source: minimal(`width = { ${expression} }`), bindings });
     assert.equal(result.ok, false, expression);
     assert.ok(result.diagnostics.some(d => d.category === 'numeric'), expression);
+  }
+});
+
+test('compiler does not prove a zero quotient or branch from Node underflow of ordinary operands', async () => {
+  for (const expression of [
+    '1 / (3e-16 / 1.7e308)',
+    '3e-16 / 1.7e308 === 0 ? -0.5 : 2',
+    '3e-16 / 1.7e308 > 0 ? 2 : -0.5',
+    '(3e-16 / 1.7e308 === 0 && 1 / 0 > 0) ? 1 : 2',
+  ]) {
+    const result = await compile({ source: minimal(`width = { ${expression} }`), bindings });
+    assert.equal(result.ok, true, `${expression}: ${JSON.stringify(result.diagnostics)}`);
   }
 });
 

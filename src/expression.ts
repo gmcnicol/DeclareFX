@@ -64,8 +64,8 @@ export function lowerExpression(source: string, resolve: (path: string[]) => Exp
 export function constantValue(e: Expression, known: ReadonlyMap<number, Scalar>): Scalar | undefined {
   const finite = (value: Scalar): Scalar | undefined => {
     if (typeof value === 'number' && !Number.isFinite(value)) throw new ExpressionError('numeric', 'Statically invalid or non-finite arithmetic.');
-    // Prove only integer values: fractional/tiny intermediates need native runtime guards, not a guessed host cutoff.
-    return typeof value === 'number' && !Number.isInteger(value) ? undefined : value;
+    // shortcut: proofs below unit-scale roundoff stay unknown; expand only with proof evidence, not a host cutoff.
+    return typeof value === 'number' && value !== 0 && Math.abs(value) < Number.EPSILON ? undefined : value;
   };
   if (e.kind === 'literal') return finite(e.value);
   if (e.kind === 'read') return known.get(e.slot);
@@ -89,7 +89,10 @@ export function constantValue(e: Expression, known: ReadonlyMap<number, Scalar>)
     case '+': return finite((left as number) + (right as number));
     case '-': return finite((left as number) - (right as number));
     case '*': return finite((left as number) * (right as number));
-    case '/': return finite((left as number) / (right as number));
+    case '/': {
+      const quotient = (left as number) / (right as number);
+      return quotient === 0 && left !== 0 ? undefined : finite(quotient);
+    }
     case '<': return left < right;
     case '<=': return left <= right;
     case '>': return left > right;

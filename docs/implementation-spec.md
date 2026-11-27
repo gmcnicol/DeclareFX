@@ -1,9 +1,10 @@
 # DeclareFX first-slice implementation spec
 
 Status: pinned inputs/build, checked subset-v1 lowering, standalone JSFX
-emission and explicit CLI implemented with local automated coverage. Three-OS
-CI/evidence automation is implemented but awaiting its actual integration run;
-real-host evidence and final Standards/Spec review remain pending. The
+emission and explicit CLI implemented. Initial three-OS compiler CI passed at
+`8b89ec6439eb1c2d01377a39056265e1e2079008`; the independent final review's
+fractional-proof fix requires a new exact-SHA matrix run after merge. Real-host
+evidence remains entirely UNRUN. The
 [explicit numeric amendment](https://github.com/gmcnicol/DeclareFX/issues/6#issuecomment-7219873850)
 resolves the [numeric policy blocker](numeric-blocker.md), not those evidence
 gates. This is the ordered implementation handoff for the
@@ -176,13 +177,13 @@ The detailed, maintained matrix and artifact collection sequence are in
 
 | Gate | Status / evidence |
 | --- | --- |
-| Pinned artifact/notices; frozen install/build/check/tests/vendor | **Pass locally** on Linux x64 with exact reference tools; 42/42 compiled tests, 2/2 vendor checks |
-| Compiler/CLI, full golden, safe publication, repeated clean relocated build identity | **Pass locally**, including two fresh frozen installs/builds and complete output/hash comparison; structural/static/model evidence, not EEL2 execution |
-| Linux/macOS/Windows workflow and artifact comparison | **Implemented; awaiting actual integration CI run**. No hosted results or runner versions claimed yet |
+| Pinned artifact/notices; frozen install/build/check/tests/vendor | **Initial three-OS PASS at `8b89ec6`**, exact reference tools; 42/42 compiled tests, 2/2 vendor checks per OS. New fix requires matrix revalidation |
+| Compiler/CLI, full golden, safe publication, repeated clean relocated build identity | **Initial three-OS PASS**, complete input/dist/output equality; structural/static/model evidence, not EEL2 execution |
+| Linux/macOS/Windows workflow and artifact comparison | **Initial actual run all passed**; [exact jobs/images/artifacts/hashes](proof-evidence.md). Final fixed SHA/run pending fresh merger |
 | Upstream clean rebuild / source-to-bundle parity | **Unrun; not required** by the selected artifact route |
-| REAPER load, numerical audio, automation/gestures/interruption, UI/HiDPI/reload | **All UNRUN**; [complete protocol and per-platform status](host-validation.md). Handoff issue drafted for coordinator, not yet created |
+| REAPER load, numerical audio, automation/gestures/interruption, UI/HiDPI/reload | **All UNRUN**; [complete protocol and per-platform status](host-validation.md). [Concrete handoff #15](https://github.com/gmcnicol/DeclareFX/issues/15), outside parent map, depends on #14 |
 | Performance | **Unmeasured**; no CPU, audio, UI or latency claims |
-| Final independent Standards/Spec review | **Pending coordinator**, after actual CI evidence and any fix/retest pass |
+| Final independent Standards/Spec review | **Completed independently in parallel since `78c24d5`**: 0 hard Standards findings; 2 optional improvements addressed; 1 Spec P2 fixed with public regressions. Final merge/matrix revalidation pending |
 
 The native UI-underflow policy blocker is resolved by the explicit amendment;
 actual host validation is not. Preserve the numeric guards and plain-decimal

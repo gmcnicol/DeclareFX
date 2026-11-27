@@ -1,0 +1,485 @@
+[
+  {
+    "platform": "linux",
+    "report": {
+      "status": "passed",
+      "revision": "8b89ec6439eb1c2d01377a39056265e1e2079008",
+      "worktreeStatus": "",
+      "runUrl": "https://github.com/gmcnicol/DeclareFX/actions/runs/46014620091",
+      "environment": {
+        "node": "v24.16.0",
+        "pnpm": "12.23.0",
+        "platform": "linux",
+        "arch": "x64",
+        "os": "Linux",
+        "release": "7.0.0-1020-azure",
+        "version": "#21-Ubuntu SMP PREEMPT Tue Oct 27 22:34:38 UTC 2026",
+        "imageOS": "ubuntu26",
+        "imageVersion": "20261122.9.1",
+        "runnerOS": "Linux",
+        "runnerArch": "X64",
+        "typescript": "5.9.3"
+      },
+      "commands": [
+        {
+          "directory": "/tmp/declarefx-reproducibility-hYmpI4/checkout-one",
+          "command": [
+            "pnpm",
+            "install",
+            "--frozen-lockfile"
+          ],
+          "log": "1-install.log",
+          "status": 0,
+          "signal": null
+        },
+        {
+          "directory": "/tmp/declarefx-reproducibility-hYmpI4/checkout-one",
+          "command": [
+            "pnpm",
+            "build"
+          ],
+          "log": "1-build.log",
+          "status": 0,
+          "signal": null
+        },
+        {
+          "directory": "/tmp/declarefx-reproducibility-hYmpI4/checkout-one",
+          "command": [
+            "/opt/hostedtoolcache/node/24.16.0/x64/bin/node",
+            "dist/src/cli.js",
+            "build",
+            "examples/gain.declare",
+            "--bindings",
+            "examples/gain.bindings.json",
+            "--dsp",
+            "examples/gain.dsp.eel",
+            "--out",
+            "built.jsfx"
+          ],
+          "log": "1-cli.log",
+          "status": 0,
+          "signal": null
+        },
+        {
+          "directory": "/tmp/declarefx-reproducibility-hYmpI4/different path checkout-two",
+          "command": [
+            "pnpm",
+            "install",
+            "--frozen-lockfile"
+          ],
+          "log": "2-install.log",
+          "status": 0,
+          "signal": null
+        },
+        {
+          "directory": "/tmp/declarefx-reproducibility-hYmpI4/different path checkout-two",
+          "command": [
+            "pnpm",
+            "build"
+          ],
+          "log": "2-build.log",
+          "status": 0,
+          "signal": null
+        },
+        {
+          "directory": "/tmp/declarefx-reproducibility-hYmpI4/different path checkout-two",
+          "command": [
+            "/opt/hostedtoolcache/node/24.16.0/x64/bin/node",
+            "dist/src/cli.js",
+            "build",
+            "examples/gain.declare",
+            "--bindings",
+            "examples/gain.bindings.json",
+            "--dsp",
+            "examples/gain.dsp.eel",
+            "--out",
+            "built.jsfx"
+          ],
+          "log": "2-cli.log",
+          "status": 0,
+          "signal": null
+        }
+      ],
+      "goldenSha256": "89a537274f8932bd0eeda87838639054aeee254f721c9dc007fd72088b5a804d"
+    },
+    "inputFileCount": 31,
+    "distFileCount": 15,
+    "goldenByteCount": 22103,
+    "inputsManifestSha256": "beb5beb805857b1d7d89f8e6b1feeaa524fac588ed4981f203210afec975b7db",
+    "distManifestSha256": "b364da2eccedd2d039ed0678ff603569e378df31b3967e085deb149f2be7fe4b",
+    "testCounts": {
+      "test": {
+        "tests": 42,
+        "pass": 42,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "vendor": {
+        "tests": 2,
+        "pass": 2,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    },
+    "logs": {
+      "environment": {
+        "path": "/tmp/declarefx-implementation/ticket-14-merge-evidence/artifacts/proof-linux/gates/environment.log",
+        "sha256": "e3d5caa5f0d931c04b6591a592ec24b81916d37d34bcc84926336e63d295ec6d"
+      },
+      "install": {
+        "path": "/tmp/declarefx-implementation/ticket-14-merge-evidence/artifacts/proof-linux/gates/install.log",
+        "sha256": "593decbbc1a489ee306e47f1ee377b8a806831ac4bb86cf1731279a6271e8c1d"
+      },
+      "build": {
+        "path": "/tmp/declarefx-implementation/ticket-14-merge-evidence/artifacts/proof-linux/gates/build.log",
+        "sha256": "b26bf4ca7b7c8125e2b277b66625e7e423b5d4e450844158256ff6de414ae2f8"
+      },
+      "check": {
+        "path": "/tmp/declarefx-implementation/ticket-14-merge-evidence/artifacts/proof-linux/gates/check.log",
+        "sha256": "8366207267355d3e3d5bf3bf6e8c94c5f93f6078c34f08973fa2b38cdda6cc92"
+      },
+      "test": {
+        "path": "/tmp/declarefx-implementation/ticket-14-merge-evidence/artifacts/proof-linux/gates/test.log",
+        "sha256": "e4b66cd0d5a7226a6470d1820d99a66a18b43e4f7170af1d82f09d9f66054c1b"
+      },
+      "vendor": {
+        "path": "/tmp/declarefx-implementation/ticket-14-merge-evidence/artifacts/proof-linux/gates/vendor.log",
+        "sha256": "d43694367fd31364f1045f246c7eef3c4795e8c314d870185a4533e23b4761cd"
+      },
+      "reproducibility": {
+        "path": "/tmp/declarefx-implementation/ticket-14-merge-evidence/artifacts/proof-linux/gates/reproducibility.log",
+        "sha256": "178ef91529825fdc8c52519695a925cae66a6132e98afac84b90df94d099bd14"
+      },
+      "worktree": {
+        "path": "/tmp/declarefx-implementation/ticket-14-merge-evidence/artifacts/proof-linux/gates/worktree.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  },
+  {
+    "platform": "darwin",
+    "report": {
+      "status": "passed",
+      "revision": "8b89ec6439eb1c2d01377a39056265e1e2079008",
+      "worktreeStatus": "",
+      "runUrl": "https://github.com/gmcnicol/DeclareFX/actions/runs/46014620091",
+      "environment": {
+        "node": "v24.16.0",
+        "pnpm": "12.23.0",
+        "platform": "darwin",
+        "arch": "arm64",
+        "os": "Darwin",
+        "release": "25.6.0",
+        "version": "Darwin Kernel Version 25.6.0: Mon Oct 12 00:39:04 PDT 2026; root:xnu-12377.161.15.701.48~2/RELEASE_ARM64_VMAPPLE",
+        "imageOS": "macos26",
+        "imageVersion": "20261123.0526.1",
+        "runnerOS": "macOS",
+        "runnerArch": "ARM64",
+        "typescript": "5.9.3"
+      },
+      "commands": [
+        {
+          "directory": "/var/folders/q2/p1t6rgxj5fj32g1dc7dmd49r0000gn/T/declarefx-reproducibility-tCOr3s/checkout-one",
+          "command": [
+            "pnpm",
+            "install",
+            "--frozen-lockfile"
+          ],
+          "log": "1-install.log",
+          "status": 0,
+          "signal": null
+        },
+        {
+          "directory": "/var/folders/q2/p1t6rgxj5fj32g1dc7dmd49r0000gn/T/declarefx-reproducibility-tCOr3s/checkout-one",
+          "command": [
+            "pnpm",
+            "build"
+          ],
+          "log": "1-build.log",
+          "status": 0,
+          "signal": null
+        },
+        {
+          "directory": "/var/folders/q2/p1t6rgxj5fj32g1dc7dmd49r0000gn/T/declarefx-reproducibility-tCOr3s/checkout-one",
+          "command": [
+            "/Users/runner/hostedtoolcache/node/24.16.0/arm64/bin/node",
+            "dist/src/cli.js",
+            "build",
+            "examples/gain.declare",
+            "--bindings",
+            "examples/gain.bindings.json",
+            "--dsp",
+            "examples/gain.dsp.eel",
+            "--out",
+            "built.jsfx"
+          ],
+          "log": "1-cli.log",
+          "status": 0,
+          "signal": null
+        },
+        {
+          "directory": "/var/folders/q2/p1t6rgxj5fj32g1dc7dmd49r0000gn/T/declarefx-reproducibility-tCOr3s/different path checkout-two",
+          "command": [
+            "pnpm",
+            "install",
+            "--frozen-lockfile"
+          ],
+          "log": "2-install.log",
+          "status": 0,
+          "signal": null
+        },
+        {
+          "directory": "/var/folders/q2/p1t6rgxj5fj32g1dc7dmd49r0000gn/T/declarefx-reproducibility-tCOr3s/different path checkout-two",
+          "command": [
+            "pnpm",
+            "build"
+          ],
+          "log": "2-build.log",
+          "status": 0,
+          "signal": null
+        },
+        {
+          "directory": "/var/folders/q2/p1t6rgxj5fj32g1dc7dmd49r0000gn/T/declarefx-reproducibility-tCOr3s/different path checkout-two",
+          "command": [
+            "/Users/runner/hostedtoolcache/node/24.16.0/arm64/bin/node",
+            "dist/src/cli.js",
+            "build",
+            "examples/gain.declare",
+            "--bindings",
+            "examples/gain.bindings.json",
+            "--dsp",
+            "examples/gain.dsp.eel",
+            "--out",
+            "built.jsfx"
+          ],
+          "log": "2-cli.log",
+          "status": 0,
+          "signal": null
+        }
+      ],
+      "goldenSha256": "89a537274f8932bd0eeda87838639054aeee254f721c9dc007fd72088b5a804d"
+    },
+    "inputFileCount": 31,
+    "distFileCount": 15,
+    "goldenByteCount": 22103,
+    "inputsManifestSha256": "beb5beb805857b1d7d89f8e6b1feeaa524fac588ed4981f203210afec975b7db",
+    "distManifestSha256": "b364da2eccedd2d039ed0678ff603569e378df31b3967e085deb149f2be7fe4b",
+    "testCounts": {
+      "test": {
+        "tests": 42,
+        "pass": 42,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "vendor": {
+        "tests": 2,
+        "pass": 2,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    },
+    "logs": {
+      "environment": {
+        "path": "/tmp/declarefx-implementation/ticket-14-merge-evidence/artifacts/proof-darwin/gates/environment.log",
+        "sha256": "de6f3d790357bca2521975867dccdba60c135a1d3ce2c9443e0a66dcf8252428"
+      },
+      "install": {
+        "path": "/tmp/declarefx-implementation/ticket-14-merge-evidence/artifacts/proof-darwin/gates/install.log",
+        "sha256": "a9c72d721218ea49eb8bfb766a882e6bcb6b71b4cdd25bc97516f2034c824700"
+      },
+      "build": {
+        "path": "/tmp/declarefx-implementation/ticket-14-merge-evidence/artifacts/proof-darwin/gates/build.log",
+        "sha256": "b26bf4ca7b7c8125e2b277b66625e7e423b5d4e450844158256ff6de414ae2f8"
+      },
+      "check": {
+        "path": "/tmp/declarefx-implementation/ticket-14-merge-evidence/artifacts/proof-darwin/gates/check.log",
+        "sha256": "8366207267355d3e3d5bf3bf6e8c94c5f93f6078c34f08973fa2b38cdda6cc92"
+      },
+      "test": {
+        "path": "/tmp/declarefx-implementation/ticket-14-merge-evidence/artifacts/proof-darwin/gates/test.log",
+        "sha256": "ec9da769ee0c1bad9d982392e8ce6274425143e1289ea671a74c9c865f205191"
+      },
+      "vendor": {
+        "path": "/tmp/declarefx-implementation/ticket-14-merge-evidence/artifacts/proof-darwin/gates/vendor.log",
+        "sha256": "877ea42ab61f44b2621af358e037c9f54e885f6ae5244ec0209d9e5004764ae1"
+      },
+      "reproducibility": {
+        "path": "/tmp/declarefx-implementation/ticket-14-merge-evidence/artifacts/proof-darwin/gates/reproducibility.log",
+        "sha256": "fce5dd6d102059892295a31b15340e7ddc0e65bb602f74d48e96baa4a6bdf967"
+      },
+      "worktree": {
+        "path": "/tmp/declarefx-implementation/ticket-14-merge-evidence/artifacts/proof-darwin/gates/worktree.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  },
+  {
+    "platform": "win32",
+    "report": {
+      "status": "passed",
+      "revision": "8b89ec6439eb1c2d01377a39056265e1e2079008",
+      "worktreeStatus": "",
+      "runUrl": "https://github.com/gmcnicol/DeclareFX/actions/runs/46014620091",
+      "environment": {
+        "node": "v24.16.0",
+        "pnpm": "12.23.0",
+        "platform": "win32",
+        "arch": "x64",
+        "os": "Windows_NT",
+        "release": "10.0.26100",
+        "version": "Windows Server 2025 Datacenter",
+        "imageOS": "win25-vs2026",
+        "imageVersion": "20261123.321.1",
+        "runnerOS": "Windows",
+        "runnerArch": "X64",
+        "typescript": "5.9.3"
+      },
+      "commands": [
+        {
+          "directory": "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\declarefx-reproducibility-IMYqPb\\checkout-one",
+          "command": [
+            "pnpm",
+            "install",
+            "--frozen-lockfile"
+          ],
+          "log": "1-install.log",
+          "status": 0,
+          "signal": null
+        },
+        {
+          "directory": "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\declarefx-reproducibility-IMYqPb\\checkout-one",
+          "command": [
+            "pnpm",
+            "build"
+          ],
+          "log": "1-build.log",
+          "status": 0,
+          "signal": null
+        },
+        {
+          "directory": "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\declarefx-reproducibility-IMYqPb\\checkout-one",
+          "command": [
+            "C:\\hostedtoolcache\\windows\\node\\24.16.0\\x64\\node.exe",
+            "dist/src/cli.js",
+            "build",
+            "examples/gain.declare",
+            "--bindings",
+            "examples/gain.bindings.json",
+            "--dsp",
+            "examples/gain.dsp.eel",
+            "--out",
+            "built.jsfx"
+          ],
+          "log": "1-cli.log",
+          "status": 0,
+          "signal": null
+        },
+        {
+          "directory": "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\declarefx-reproducibility-IMYqPb\\different path checkout-two",
+          "command": [
+            "pnpm",
+            "install",
+            "--frozen-lockfile"
+          ],
+          "log": "2-install.log",
+          "status": 0,
+          "signal": null
+        },
+        {
+          "directory": "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\declarefx-reproducibility-IMYqPb\\different path checkout-two",
+          "command": [
+            "pnpm",
+            "build"
+          ],
+          "log": "2-build.log",
+          "status": 0,
+          "signal": null
+        },
+        {
+          "directory": "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\declarefx-reproducibility-IMYqPb\\different path checkout-two",
+          "command": [
+            "C:\\hostedtoolcache\\windows\\node\\24.16.0\\x64\\node.exe",
+            "dist/src/cli.js",
+            "build",
+            "examples/gain.declare",
+            "--bindings",
+            "examples/gain.bindings.json",
+            "--dsp",
+            "examples/gain.dsp.eel",
+            "--out",
+            "built.jsfx"
+          ],
+          "log": "2-cli.log",
+          "status": 0,
+          "signal": null
+        }
+      ],
+      "goldenSha256": "89a537274f8932bd0eeda87838639054aeee254f721c9dc007fd72088b5a804d"
+    },
+    "inputFileCount": 31,
+    "distFileCount": 15,
+    "goldenByteCount": 22103,
+    "inputsManifestSha256": "beb5beb805857b1d7d89f8e6b1feeaa524fac588ed4981f203210afec975b7db",
+    "distManifestSha256": "b364da2eccedd2d039ed0678ff603569e378df31b3967e085deb149f2be7fe4b",
+    "testCounts": {
+      "test": {
+        "tests": 42,
+        "pass": 42,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "vendor": {
+        "tests": 2,
+        "pass": 2,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    },
+    "logs": {
+      "environment": {
+        "path": "/tmp/declarefx-implementation/ticket-14-merge-evidence/artifacts/proof-win32/gates/environment.log",
+        "sha256": "0052ea60ae483287358686643a0595881020ae0f79e4b6ace3ef61ee379a928d"
+      },
+      "install": {
+        "path": "/tmp/declarefx-implementation/ticket-14-merge-evidence/artifacts/proof-win32/gates/install.log",
+        "sha256": "c998ff905c40b23a895819d2d05aec787e52ded7c8b95bff3c245f8955ff8430"
+      },
+      "build": {
+        "path": "/tmp/declarefx-implementation/ticket-14-merge-evidence/artifacts/proof-win32/gates/build.log",
+        "sha256": "b26bf4ca7b7c8125e2b277b66625e7e423b5d4e450844158256ff6de414ae2f8"
+      },
+      "check": {
+        "path": "/tmp/declarefx-implementation/ticket-14-merge-evidence/artifacts/proof-win32/gates/check.log",
+        "sha256": "8366207267355d3e3d5bf3bf6e8c94c5f93f6078c34f08973fa2b38cdda6cc92"
+      },
+      "test": {
+        "path": "/tmp/declarefx-implementation/ticket-14-merge-evidence/artifacts/proof-win32/gates/test.log",
+        "sha256": "0584696515fbfd4a04a5b3ef7dd4c97b205faa26608362b45d28a8f87c339ce4"
+      },
+      "vendor": {
+        "path": "/tmp/declarefx-implementation/ticket-14-merge-evidence/artifacts/proof-win32/gates/vendor.log",
+        "sha256": "efa6a9d78eea55ce465590e89943a74847d8ee73c1688f7c94021f1c8fc9f44d"
+      },
+      "reproducibility": {
+        "path": "/tmp/declarefx-implementation/ticket-14-merge-evidence/artifacts/proof-win32/gates/reproducibility.log",
+        "sha256": "329c603b00b73465f0633bfbbc4125fbeb09a61d697ea2952d2fa0f094ec256e"
+      },
+      "worktree": {
+        "path": "/tmp/declarefx-implementation/ticket-14-merge-evidence/artifacts/proof-win32/gates/worktree.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  }
+]
