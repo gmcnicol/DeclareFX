@@ -1,0 +1,7 @@
+App [ width = 400, height = 160, gain: number = 1,
+ background: View [ width = { parent.width }, height = { parent.height }, fill = #eeeeee ],
+ label: Text [ x = 12, y = 12, width = 200, height = 20, text = "Gain" ],
+ gainControl: View [ x = 12, y = 48, width = { parent.width / 2 }, height = 24, fill = #557799,
+  level: View [ width = { parent.width * app.gain / 2 }, height = { parent.height }, fill = #88bbdd ]
+ ]
+]

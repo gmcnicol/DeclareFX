@@ -1,0 +1,437 @@
+// DeclareFX generated output v1; edits are disposable.
+// compiler: declarefx 0.1.0; subset: 1
+// upstream: cc62d9dfa0b39f84e20480ff28bed8107d986331
+// inputs-sha256: 1fe47fbcee11b0704ea4fc13794952cbc87a5b9124d5469f12729fba94e22aa7
+desc:DeclareFX Gain v1
+options:gfx_idle
+slider1:1<0,2,0>Gain
+
+@init
+function __dfx_finite(v) (v === v && abs(v) <= 1.7976931348623157e308);
+gfx_ext_retina = 1;
+__dfx_ui_first = 1;
+__dfx_ui_drag = 0;
+__dfx_ui_touch = 0;
+__dfx_ui_down = 0;
+__dfx_ui_numeric_error = 0;
+__dfx_ui_s0 = 0;
+__dfx_ui_v0 = 0;
+__dfx_ui_s1 = 0;
+__dfx_ui_v1 = 0;
+__dfx_ui_s2 = 1;
+__dfx_ui_v2 = 0;
+__dfx_ui_s3 = 0;
+__dfx_ui_v3 = 0;
+__dfx_ui_s4 = 0;
+__dfx_ui_v4 = 0;
+__dfx_ui_s5 = 0;
+__dfx_ui_v5 = 0;
+__dfx_ui_s6 = 0;
+__dfx_ui_v6 = 0;
+__dfx_ui_s7 = 0;
+__dfx_ui_v7 = 0;
+__dfx_ui_s8 = 0;
+__dfx_ui_v8 = 0;
+__dfx_ui_s9 = 0;
+__dfx_ui_v9 = 0;
+__dfx_ui_s10 = 0;
+__dfx_ui_v10 = 0;
+__dfx_ui_s11 = 0;
+__dfx_ui_v11 = 0;
+__dfx_ui_s12 = 0;
+__dfx_ui_v12 = 0;
+__dfx_ui_s13 = 0;
+__dfx_ui_v13 = 0;
+__dfx_ui_s14 = 0;
+__dfx_ui_v14 = 0;
+__dfx_ui_s15 = 0;
+__dfx_ui_v15 = 0;
+__dfx_ui_s16 = 0;
+__dfx_ui_v16 = 0;
+__dfx_ui_s17 = 0;
+__dfx_ui_v17 = 0;
+__dfx_ui_s18 = 0;
+__dfx_ui_v18 = 0;
+__dfx_ui_s19 = 0;
+__dfx_ui_v19 = 0;
+__dfx_ui_s20 = 0;
+__dfx_ui_v20 = 0;
+__dfx_ui_x0 = 0;
+__dfx_ui_y0 = 0;
+__dfx_ui_x1 = 0;
+__dfx_ui_y1 = 0;
+__dfx_ui_x2 = 0;
+__dfx_ui_y2 = 0;
+#__dfx_label2 = "Gain";
+__dfx_ui_x3 = 0;
+__dfx_ui_y3 = 0;
+__dfx_ui_x4 = 0;
+__dfx_ui_y4 = 0;
+
+@block
+__dfx_audio_gain = slider1;
+dfx_param_gain = __dfx_finite(__dfx_audio_gain) ? min(2, max(0, __dfx_audio_gain)) : 1;
+
+@sample
+spl0 *= dfx_param_gain;
+spl1 *= dfx_param_gain;
+
+@gfx 400 160
+function __dfx_ui_refresh() (
+__dfx_ui_observed = slider1;
+!__dfx_finite(__dfx_ui_observed) ? (__dfx_ui_numeric_error = 1;);
+__dfx_ui_d0 = 0;
+__dfx_ui_next = gfx_w;
+__dfx_ui_ok = __dfx_finite(__dfx_ui_next) && (__dfx_ui_next >= 0);
+__dfx_ui_d0 = (__dfx_ui_v0 !== __dfx_ui_ok) || (__dfx_ui_ok && (__dfx_ui_s0 !== __dfx_ui_next));
+__dfx_ui_v0 = __dfx_ui_ok;
+__dfx_ui_ok ? (__dfx_ui_s0 = __dfx_ui_next;) : (__dfx_ui_numeric_error = 1;);
+__dfx_ui_d1 = 0;
+__dfx_ui_next = gfx_h;
+__dfx_ui_ok = __dfx_finite(__dfx_ui_next) && (__dfx_ui_next >= 0);
+__dfx_ui_d1 = (__dfx_ui_v1 !== __dfx_ui_ok) || (__dfx_ui_ok && (__dfx_ui_s1 !== __dfx_ui_next));
+__dfx_ui_v1 = __dfx_ui_ok;
+__dfx_ui_ok ? (__dfx_ui_s1 = __dfx_ui_next;) : (__dfx_ui_numeric_error = 1;);
+__dfx_ui_d2 = 0;
+__dfx_ui_next = __dfx_finite(__dfx_ui_observed) ? min(2, max(0, __dfx_ui_observed)) : 1;
+__dfx_ui_ok = __dfx_finite(__dfx_ui_next);
+__dfx_ui_d2 = (__dfx_ui_v2 !== __dfx_ui_ok) || (__dfx_ui_ok && (__dfx_ui_s2 !== __dfx_ui_next));
+__dfx_ui_v2 = __dfx_ui_ok;
+__dfx_ui_ok ? (__dfx_ui_s2 = __dfx_ui_next;) : (__dfx_ui_numeric_error = 1;);
+__dfx_ui_d3 = 0;
+(__dfx_ui_first) ? (
+__dfx_ui_t0 = 0;
+__dfx_ui_t0_ok = 1;
+__dfx_ui_next = __dfx_ui_t0;
+__dfx_ui_ok = __dfx_ui_t0_ok;
+__dfx_ui_d3 = (__dfx_ui_v3 !== __dfx_ui_ok) || (__dfx_ui_ok && (__dfx_ui_s3 !== __dfx_ui_next));
+__dfx_ui_v3 = __dfx_ui_ok;
+__dfx_ui_ok ? (__dfx_ui_s3 = __dfx_ui_next;) : (__dfx_ui_numeric_error = 1;);
+);
+__dfx_ui_d4 = 0;
+(__dfx_ui_first) ? (
+__dfx_ui_t1 = 0;
+__dfx_ui_t1_ok = 1;
+__dfx_ui_next = __dfx_ui_t1;
+__dfx_ui_ok = __dfx_ui_t1_ok;
+__dfx_ui_d4 = (__dfx_ui_v4 !== __dfx_ui_ok) || (__dfx_ui_ok && (__dfx_ui_s4 !== __dfx_ui_next));
+__dfx_ui_v4 = __dfx_ui_ok;
+__dfx_ui_ok ? (__dfx_ui_s4 = __dfx_ui_next;) : (__dfx_ui_numeric_error = 1;);
+);
+__dfx_ui_d5 = 0;
+(__dfx_ui_first) ? (
+__dfx_ui_t2 = 0;
+__dfx_ui_t2_ok = 1;
+__dfx_ui_next = __dfx_ui_t2;
+__dfx_ui_ok = __dfx_ui_t2_ok;
+__dfx_ui_d5 = (__dfx_ui_v5 !== __dfx_ui_ok) || (__dfx_ui_ok && (__dfx_ui_s5 !== __dfx_ui_next));
+__dfx_ui_v5 = __dfx_ui_ok;
+__dfx_ui_ok ? (__dfx_ui_s5 = __dfx_ui_next;) : (__dfx_ui_numeric_error = 1;);
+);
+__dfx_ui_d6 = 0;
+(__dfx_ui_first) ? (
+__dfx_ui_t3 = 0;
+__dfx_ui_t3_ok = 1;
+__dfx_ui_next = __dfx_ui_t3;
+__dfx_ui_ok = __dfx_ui_t3_ok;
+__dfx_ui_d6 = (__dfx_ui_v6 !== __dfx_ui_ok) || (__dfx_ui_ok && (__dfx_ui_s6 !== __dfx_ui_next));
+__dfx_ui_v6 = __dfx_ui_ok;
+__dfx_ui_ok ? (__dfx_ui_s6 = __dfx_ui_next;) : (__dfx_ui_numeric_error = 1;);
+);
+__dfx_ui_d7 = 0;
+(__dfx_ui_first || __dfx_ui_d0) ? (
+__dfx_ui_t4 = __dfx_ui_s0;
+__dfx_ui_t4_ok = __dfx_ui_v0;
+__dfx_ui_next = __dfx_ui_t4;
+__dfx_ui_ok = __dfx_ui_t4_ok && (__dfx_ui_next >= 0);
+__dfx_ui_d7 = (__dfx_ui_v7 !== __dfx_ui_ok) || (__dfx_ui_ok && (__dfx_ui_s7 !== __dfx_ui_next));
+__dfx_ui_v7 = __dfx_ui_ok;
+__dfx_ui_ok ? (__dfx_ui_s7 = __dfx_ui_next;) : (__dfx_ui_numeric_error = 1;);
+);
+__dfx_ui_d8 = 0;
+(__dfx_ui_first || __dfx_ui_d1) ? (
+__dfx_ui_t5 = __dfx_ui_s1;
+__dfx_ui_t5_ok = __dfx_ui_v1;
+__dfx_ui_next = __dfx_ui_t5;
+__dfx_ui_ok = __dfx_ui_t5_ok && (__dfx_ui_next >= 0);
+__dfx_ui_d8 = (__dfx_ui_v8 !== __dfx_ui_ok) || (__dfx_ui_ok && (__dfx_ui_s8 !== __dfx_ui_next));
+__dfx_ui_v8 = __dfx_ui_ok;
+__dfx_ui_ok ? (__dfx_ui_s8 = __dfx_ui_next;) : (__dfx_ui_numeric_error = 1;);
+);
+__dfx_ui_d9 = 0;
+(__dfx_ui_first) ? (
+__dfx_ui_t6 = 12;
+__dfx_ui_t6_ok = 1;
+__dfx_ui_next = __dfx_ui_t6;
+__dfx_ui_ok = __dfx_ui_t6_ok;
+__dfx_ui_d9 = (__dfx_ui_v9 !== __dfx_ui_ok) || (__dfx_ui_ok && (__dfx_ui_s9 !== __dfx_ui_next));
+__dfx_ui_v9 = __dfx_ui_ok;
+__dfx_ui_ok ? (__dfx_ui_s9 = __dfx_ui_next;) : (__dfx_ui_numeric_error = 1;);
+);
+__dfx_ui_d10 = 0;
+(__dfx_ui_first) ? (
+__dfx_ui_t7 = 12;
+__dfx_ui_t7_ok = 1;
+__dfx_ui_next = __dfx_ui_t7;
+__dfx_ui_ok = __dfx_ui_t7_ok;
+__dfx_ui_d10 = (__dfx_ui_v10 !== __dfx_ui_ok) || (__dfx_ui_ok && (__dfx_ui_s10 !== __dfx_ui_next));
+__dfx_ui_v10 = __dfx_ui_ok;
+__dfx_ui_ok ? (__dfx_ui_s10 = __dfx_ui_next;) : (__dfx_ui_numeric_error = 1;);
+);
+__dfx_ui_d11 = 0;
+(__dfx_ui_first) ? (
+__dfx_ui_t8 = 200;
+__dfx_ui_t8_ok = 1;
+__dfx_ui_next = __dfx_ui_t8;
+__dfx_ui_ok = __dfx_ui_t8_ok && (__dfx_ui_next >= 0);
+__dfx_ui_d11 = (__dfx_ui_v11 !== __dfx_ui_ok) || (__dfx_ui_ok && (__dfx_ui_s11 !== __dfx_ui_next));
+__dfx_ui_v11 = __dfx_ui_ok;
+__dfx_ui_ok ? (__dfx_ui_s11 = __dfx_ui_next;) : (__dfx_ui_numeric_error = 1;);
+);
+__dfx_ui_d12 = 0;
+(__dfx_ui_first) ? (
+__dfx_ui_t9 = 20;
+__dfx_ui_t9_ok = 1;
+__dfx_ui_next = __dfx_ui_t9;
+__dfx_ui_ok = __dfx_ui_t9_ok && (__dfx_ui_next >= 0);
+__dfx_ui_d12 = (__dfx_ui_v12 !== __dfx_ui_ok) || (__dfx_ui_ok && (__dfx_ui_s12 !== __dfx_ui_next));
+__dfx_ui_v12 = __dfx_ui_ok;
+__dfx_ui_ok ? (__dfx_ui_s12 = __dfx_ui_next;) : (__dfx_ui_numeric_error = 1;);
+);
+__dfx_ui_d13 = 0;
+(__dfx_ui_first) ? (
+__dfx_ui_t10 = 12;
+__dfx_ui_t10_ok = 1;
+__dfx_ui_next = __dfx_ui_t10;
+__dfx_ui_ok = __dfx_ui_t10_ok;
+__dfx_ui_d13 = (__dfx_ui_v13 !== __dfx_ui_ok) || (__dfx_ui_ok && (__dfx_ui_s13 !== __dfx_ui_next));
+__dfx_ui_v13 = __dfx_ui_ok;
+__dfx_ui_ok ? (__dfx_ui_s13 = __dfx_ui_next;) : (__dfx_ui_numeric_error = 1;);
+);
+__dfx_ui_d14 = 0;
+(__dfx_ui_first) ? (
+__dfx_ui_t11 = 48;
+__dfx_ui_t11_ok = 1;
+__dfx_ui_next = __dfx_ui_t11;
+__dfx_ui_ok = __dfx_ui_t11_ok;
+__dfx_ui_d14 = (__dfx_ui_v14 !== __dfx_ui_ok) || (__dfx_ui_ok && (__dfx_ui_s14 !== __dfx_ui_next));
+__dfx_ui_v14 = __dfx_ui_ok;
+__dfx_ui_ok ? (__dfx_ui_s14 = __dfx_ui_next;) : (__dfx_ui_numeric_error = 1;);
+);
+__dfx_ui_d15 = 0;
+(__dfx_ui_first || __dfx_ui_d0) ? (
+__dfx_ui_t13 = __dfx_ui_s0;
+__dfx_ui_t13_ok = __dfx_ui_v0;
+__dfx_ui_t12_ok = __dfx_ui_t13_ok;
+__dfx_ui_t12_ok ? (
+__dfx_ui_t14 = 2;
+__dfx_ui_t14_ok = 1;
+__dfx_ui_t12_ok = __dfx_ui_t14_ok && (__dfx_ui_t14 !== 0) && (abs((__dfx_ui_t13 / __dfx_ui_t14)) <= 1.7976931348623157e308);
+__dfx_ui_t12_ok ? (__dfx_ui_t12 = (__dfx_ui_t13 / __dfx_ui_t14););
+__dfx_ui_t12_ok = __dfx_ui_t12_ok && __dfx_finite(__dfx_ui_t12);
+);
+__dfx_ui_next = __dfx_ui_t12;
+__dfx_ui_ok = __dfx_ui_t12_ok && (__dfx_ui_next >= 0);
+__dfx_ui_d15 = (__dfx_ui_v15 !== __dfx_ui_ok) || (__dfx_ui_ok && (__dfx_ui_s15 !== __dfx_ui_next));
+__dfx_ui_v15 = __dfx_ui_ok;
+__dfx_ui_ok ? (__dfx_ui_s15 = __dfx_ui_next;) : (__dfx_ui_numeric_error = 1;);
+);
+__dfx_ui_d16 = 0;
+(__dfx_ui_first) ? (
+__dfx_ui_t15 = 24;
+__dfx_ui_t15_ok = 1;
+__dfx_ui_next = __dfx_ui_t15;
+__dfx_ui_ok = __dfx_ui_t15_ok && (__dfx_ui_next >= 0);
+__dfx_ui_d16 = (__dfx_ui_v16 !== __dfx_ui_ok) || (__dfx_ui_ok && (__dfx_ui_s16 !== __dfx_ui_next));
+__dfx_ui_v16 = __dfx_ui_ok;
+__dfx_ui_ok ? (__dfx_ui_s16 = __dfx_ui_next;) : (__dfx_ui_numeric_error = 1;);
+);
+__dfx_ui_d17 = 0;
+(__dfx_ui_first) ? (
+__dfx_ui_t16 = 0;
+__dfx_ui_t16_ok = 1;
+__dfx_ui_next = __dfx_ui_t16;
+__dfx_ui_ok = __dfx_ui_t16_ok;
+__dfx_ui_d17 = (__dfx_ui_v17 !== __dfx_ui_ok) || (__dfx_ui_ok && (__dfx_ui_s17 !== __dfx_ui_next));
+__dfx_ui_v17 = __dfx_ui_ok;
+__dfx_ui_ok ? (__dfx_ui_s17 = __dfx_ui_next;) : (__dfx_ui_numeric_error = 1;);
+);
+__dfx_ui_d18 = 0;
+(__dfx_ui_first) ? (
+__dfx_ui_t17 = 0;
+__dfx_ui_t17_ok = 1;
+__dfx_ui_next = __dfx_ui_t17;
+__dfx_ui_ok = __dfx_ui_t17_ok;
+__dfx_ui_d18 = (__dfx_ui_v18 !== __dfx_ui_ok) || (__dfx_ui_ok && (__dfx_ui_s18 !== __dfx_ui_next));
+__dfx_ui_v18 = __dfx_ui_ok;
+__dfx_ui_ok ? (__dfx_ui_s18 = __dfx_ui_next;) : (__dfx_ui_numeric_error = 1;);
+);
+__dfx_ui_d19 = 0;
+(__dfx_ui_first || __dfx_ui_d15 || __dfx_ui_d2) ? (
+__dfx_ui_t20 = __dfx_ui_s15;
+__dfx_ui_t20_ok = __dfx_ui_v15;
+__dfx_ui_t19_ok = __dfx_ui_t20_ok;
+__dfx_ui_t19_ok ? (
+__dfx_ui_t21 = __dfx_ui_s2;
+__dfx_ui_t21_ok = __dfx_ui_v2;
+__dfx_ui_t19_ok = __dfx_ui_t21_ok && (abs((__dfx_ui_t20 * __dfx_ui_t21)) <= 1.7976931348623157e308);
+__dfx_ui_t19_ok ? (__dfx_ui_t19 = (__dfx_ui_t20 * __dfx_ui_t21););
+__dfx_ui_t19_ok = __dfx_ui_t19_ok && __dfx_finite(__dfx_ui_t19);
+);
+__dfx_ui_t18_ok = __dfx_ui_t19_ok;
+__dfx_ui_t18_ok ? (
+__dfx_ui_t22 = 2;
+__dfx_ui_t22_ok = 1;
+__dfx_ui_t18_ok = __dfx_ui_t22_ok && (__dfx_ui_t22 !== 0) && (abs((__dfx_ui_t19 / __dfx_ui_t22)) <= 1.7976931348623157e308);
+__dfx_ui_t18_ok ? (__dfx_ui_t18 = (__dfx_ui_t19 / __dfx_ui_t22););
+__dfx_ui_t18_ok = __dfx_ui_t18_ok && __dfx_finite(__dfx_ui_t18);
+);
+__dfx_ui_next = __dfx_ui_t18;
+__dfx_ui_ok = __dfx_ui_t18_ok && (__dfx_ui_next >= 0);
+__dfx_ui_d19 = (__dfx_ui_v19 !== __dfx_ui_ok) || (__dfx_ui_ok && (__dfx_ui_s19 !== __dfx_ui_next));
+__dfx_ui_v19 = __dfx_ui_ok;
+__dfx_ui_ok ? (__dfx_ui_s19 = __dfx_ui_next;) : (__dfx_ui_numeric_error = 1;);
+);
+__dfx_ui_d20 = 0;
+(__dfx_ui_first || __dfx_ui_d16) ? (
+__dfx_ui_t23 = __dfx_ui_s16;
+__dfx_ui_t23_ok = __dfx_ui_v16;
+__dfx_ui_next = __dfx_ui_t23;
+__dfx_ui_ok = __dfx_ui_t23_ok && (__dfx_ui_next >= 0);
+__dfx_ui_d20 = (__dfx_ui_v20 !== __dfx_ui_ok) || (__dfx_ui_ok && (__dfx_ui_s20 !== __dfx_ui_next));
+__dfx_ui_v20 = __dfx_ui_ok;
+__dfx_ui_ok ? (__dfx_ui_s20 = __dfx_ui_next;) : (__dfx_ui_numeric_error = 1;);
+);
+__dfx_ui_first = 0;
+);
+function __dfx_ui_cancel() (
+__dfx_ui_touch ? (slider_automate(1, 1); __dfx_ui_touch = 0;);
+__dfx_ui_drag = 0;
+);
+function __dfx_ui_place() (
+__dfx_ui_place_ok0 = __dfx_ui_v3 && __dfx_ui_v4;
+(abs(0) <= 1.7976931348623157e308) ? (
+__dfx_ui_next = 0;
+__dfx_ui_x0 = __dfx_ui_next;
+) : (__dfx_ui_place_ok0 = 0; __dfx_ui_numeric_error = 1;);
+(abs(0) <= 1.7976931348623157e308) ? (
+__dfx_ui_next = 0;
+__dfx_ui_y0 = __dfx_ui_next;
+) : (__dfx_ui_place_ok0 = 0; __dfx_ui_numeric_error = 1;);
+__dfx_ui_place_ok1 = __dfx_ui_v5 && __dfx_ui_v6 && __dfx_ui_place_ok0;
+(abs(__dfx_ui_x0 + __dfx_ui_s5) <= 1.7976931348623157e308) ? (
+__dfx_ui_next = __dfx_ui_x0 + __dfx_ui_s5;
+__dfx_ui_x1 = __dfx_ui_next;
+) : (__dfx_ui_place_ok1 = 0; __dfx_ui_numeric_error = 1;);
+(abs(__dfx_ui_y0 + __dfx_ui_s6) <= 1.7976931348623157e308) ? (
+__dfx_ui_next = __dfx_ui_y0 + __dfx_ui_s6;
+__dfx_ui_y1 = __dfx_ui_next;
+) : (__dfx_ui_place_ok1 = 0; __dfx_ui_numeric_error = 1;);
+__dfx_ui_place_ok2 = __dfx_ui_v9 && __dfx_ui_v10 && __dfx_ui_place_ok0;
+(abs(__dfx_ui_x0 + __dfx_ui_s9) <= 1.7976931348623157e308) ? (
+__dfx_ui_next = __dfx_ui_x0 + __dfx_ui_s9;
+__dfx_ui_x2 = __dfx_ui_next;
+) : (__dfx_ui_place_ok2 = 0; __dfx_ui_numeric_error = 1;);
+(abs(__dfx_ui_y0 + __dfx_ui_s10) <= 1.7976931348623157e308) ? (
+__dfx_ui_next = __dfx_ui_y0 + __dfx_ui_s10;
+__dfx_ui_y2 = __dfx_ui_next;
+) : (__dfx_ui_place_ok2 = 0; __dfx_ui_numeric_error = 1;);
+__dfx_ui_place_ok3 = __dfx_ui_v13 && __dfx_ui_v14 && __dfx_ui_place_ok0;
+(abs(__dfx_ui_x0 + __dfx_ui_s13) <= 1.7976931348623157e308) ? (
+__dfx_ui_next = __dfx_ui_x0 + __dfx_ui_s13;
+__dfx_ui_x3 = __dfx_ui_next;
+) : (__dfx_ui_place_ok3 = 0; __dfx_ui_numeric_error = 1;);
+(abs(__dfx_ui_y0 + __dfx_ui_s14) <= 1.7976931348623157e308) ? (
+__dfx_ui_next = __dfx_ui_y0 + __dfx_ui_s14;
+__dfx_ui_y3 = __dfx_ui_next;
+) : (__dfx_ui_place_ok3 = 0; __dfx_ui_numeric_error = 1;);
+__dfx_ui_place_ok4 = __dfx_ui_v17 && __dfx_ui_v18 && __dfx_ui_place_ok3;
+(abs(__dfx_ui_x3 + __dfx_ui_s17) <= 1.7976931348623157e308) ? (
+__dfx_ui_next = __dfx_ui_x3 + __dfx_ui_s17;
+__dfx_ui_x4 = __dfx_ui_next;
+) : (__dfx_ui_place_ok4 = 0; __dfx_ui_numeric_error = 1;);
+(abs(__dfx_ui_y3 + __dfx_ui_s18) <= 1.7976931348623157e308) ? (
+__dfx_ui_next = __dfx_ui_y3 + __dfx_ui_s18;
+__dfx_ui_y4 = __dfx_ui_next;
+) : (__dfx_ui_place_ok4 = 0; __dfx_ui_numeric_error = 1;);
+__dfx_ui_control_ok = __dfx_ui_place_ok3 && __dfx_ui_v13 && __dfx_ui_v14 && __dfx_ui_v15 && __dfx_ui_v16 && (__dfx_ui_s15 > 0) && (__dfx_ui_s16 > 0);
+);
+__dfx_ui_refresh();
+__dfx_ui_place();
+__dfx_ui_window = gfx_getchar(65536);
+__dfx_ui_live = !(gfx_ext_flags & 2) && ((__dfx_ui_window & 6) === 6) && __dfx_ui_v0 && __dfx_ui_v1 && (__dfx_ui_s0 > 0) && (__dfx_ui_s1 > 0);
+__dfx_ui_down_now = mouse_cap & 1;
+__dfx_ui_drag && (!__dfx_ui_live || !__dfx_ui_down_now || !__dfx_ui_control_ok) ? (__dfx_ui_cancel(););
+__dfx_ui_hit = __dfx_ui_control_ok && mouse_x >= 0 && mouse_y >= 0 && mouse_x < __dfx_ui_s0 && mouse_y < __dfx_ui_s1 && mouse_x >= __dfx_ui_x3 && mouse_y >= __dfx_ui_y3 && (mouse_x - __dfx_ui_x3) < __dfx_ui_s15 && (mouse_y - __dfx_ui_y3) < __dfx_ui_s16;
+__dfx_ui_live && __dfx_ui_down_now && !__dfx_ui_down && __dfx_ui_hit ? (
+__dfx_ui_drag = 1;
+__dfx_ui_prev_x = mouse_x;
+);
+__dfx_ui_drag ? (
+__dfx_finite(mouse_x) && (abs(mouse_x - __dfx_ui_prev_x) <= 1.7976931348623157e308) ? (
+__dfx_ui_delta = mouse_x - __dfx_ui_prev_x;
+__dfx_ui_delta !== 0 ? (
+__dfx_ui_prev_x = mouse_x;
+__dfx_ui_native = slider1;
+__dfx_ui_native = __dfx_finite(__dfx_ui_native) ? min(2, max(0, __dfx_ui_native)) : 1;
+(abs(2 * __dfx_ui_delta) <= 1.7976931348623157e308) && (abs((2 * __dfx_ui_delta) / __dfx_ui_s15) <= 1.7976931348623157e308) && (abs(__dfx_ui_native + 2 * __dfx_ui_delta / __dfx_ui_s15) <= 1.7976931348623157e308) ? (
+__dfx_ui_edit = __dfx_ui_native + 2 * __dfx_ui_delta / __dfx_ui_s15;
+__dfx_ui_edit = min(2, max(0, __dfx_ui_edit));
+__dfx_ui_edit !== __dfx_ui_native ? (
+slider1 = __dfx_ui_edit;
+slider_automate(1);
+__dfx_ui_touch = 1;
+);
+) : (__dfx_ui_numeric_error = 1; __dfx_ui_cancel(););
+);
+) : (__dfx_ui_numeric_error = 1; __dfx_ui_cancel(););
+);
+__dfx_ui_down = __dfx_ui_down_now;
+__dfx_ui_refresh();
+__dfx_ui_place();
+__dfx_ui_drag && !__dfx_ui_control_ok ? (__dfx_ui_cancel(););
+!((gfx_ext_flags & 2)) && __dfx_ui_v0 && __dfx_ui_v1 ? (
+gfx_dest = -1;
+gfx_mode = 0;
+gfx_a = 1;
+gfx_setfont(0);
+(__dfx_ui_s7 > 0 && __dfx_ui_s8 > 0 && __dfx_ui_x1 < __dfx_ui_s0 && __dfx_ui_y1 < __dfx_ui_s1 && __dfx_ui_s7 > max(0, -__dfx_ui_x1) && __dfx_ui_s8 > max(0, -__dfx_ui_y1)) ? (
+__dfx_ui_left = max(0, __dfx_ui_x1);
+__dfx_ui_top = max(0, __dfx_ui_y1);
+__dfx_ui_w = min(__dfx_ui_s7 - max(0, -__dfx_ui_x1), __dfx_ui_s0 - __dfx_ui_left);
+__dfx_ui_h = min(__dfx_ui_s8 - max(0, -__dfx_ui_y1), __dfx_ui_s1 - __dfx_ui_top);
+gfx_r = 238 / 255;
+gfx_g = 238 / 255;
+gfx_b = 238 / 255;
+gfx_rect(__dfx_ui_left, __dfx_ui_top, __dfx_ui_w, __dfx_ui_h);
+);
+(__dfx_ui_s11 > 0 && __dfx_ui_s12 > 0 && __dfx_ui_x2 < __dfx_ui_s0 && __dfx_ui_y2 < __dfx_ui_s1 && __dfx_ui_s11 > max(0, -__dfx_ui_x2) && __dfx_ui_s12 > max(0, -__dfx_ui_y2)) ? (
+__dfx_ui_left = max(0, __dfx_ui_x2);
+__dfx_ui_top = max(0, __dfx_ui_y2);
+__dfx_ui_w = min(__dfx_ui_s11 - max(0, -__dfx_ui_x2), __dfx_ui_s0 - __dfx_ui_left);
+__dfx_ui_h = min(__dfx_ui_s12 - max(0, -__dfx_ui_y2), __dfx_ui_s1 - __dfx_ui_top);
+gfx_r = 0; gfx_g = 0; gfx_b = 0;
+gfx_x = __dfx_ui_x2; gfx_y = __dfx_ui_y2;
+gfx_drawstr(#__dfx_label2, 0, __dfx_ui_left + __dfx_ui_w, __dfx_ui_top + __dfx_ui_h);
+);
+(__dfx_ui_s15 > 0 && __dfx_ui_s16 > 0 && __dfx_ui_x3 < __dfx_ui_s0 && __dfx_ui_y3 < __dfx_ui_s1 && __dfx_ui_s15 > max(0, -__dfx_ui_x3) && __dfx_ui_s16 > max(0, -__dfx_ui_y3)) ? (
+__dfx_ui_left = max(0, __dfx_ui_x3);
+__dfx_ui_top = max(0, __dfx_ui_y3);
+__dfx_ui_w = min(__dfx_ui_s15 - max(0, -__dfx_ui_x3), __dfx_ui_s0 - __dfx_ui_left);
+__dfx_ui_h = min(__dfx_ui_s16 - max(0, -__dfx_ui_y3), __dfx_ui_s1 - __dfx_ui_top);
+gfx_r = 85 / 255;
+gfx_g = 119 / 255;
+gfx_b = 153 / 255;
+gfx_rect(__dfx_ui_left, __dfx_ui_top, __dfx_ui_w, __dfx_ui_h);
+);
+(__dfx_ui_s19 > 0 && __dfx_ui_s20 > 0 && __dfx_ui_x4 < __dfx_ui_s0 && __dfx_ui_y4 < __dfx_ui_s1 && __dfx_ui_s19 > max(0, -__dfx_ui_x4) && __dfx_ui_s20 > max(0, -__dfx_ui_y4)) ? (
+__dfx_ui_left = max(0, __dfx_ui_x4);
+__dfx_ui_top = max(0, __dfx_ui_y4);
+__dfx_ui_w = min(__dfx_ui_s19 - max(0, -__dfx_ui_x4), __dfx_ui_s0 - __dfx_ui_left);
+__dfx_ui_h = min(__dfx_ui_s20 - max(0, -__dfx_ui_y4), __dfx_ui_s1 - __dfx_ui_top);
+gfx_r = 136 / 255;
+gfx_g = 187 / 255;
+gfx_b = 221 / 255;
+gfx_rect(__dfx_ui_left, __dfx_ui_top, __dfx_ui_w, __dfx_ui_h);
+);
+);
