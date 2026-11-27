@@ -5,10 +5,12 @@ Declare-authored interfaces for standalone JSFX, preserving hand-written EEL2 DS
 **Current status:** checked subset-v1 compilation, standalone JSFX emission,
 explicit CLI, safe regeneration and the complete gain example/golden are
 implemented and tested locally. No EEL2 execution or REAPER/audio validation is
-claimed; three-platform automated evidence remains pending. **Ticket 13 remains
-blocked:** [finite subnormal preservation](docs/numeric-blocker.md) needs a verified
-target mechanism or an explicit contract decision; full numeric conformance is
-not established.
+claimed; three-platform automated evidence and final Standards/Spec review remain
+pending. The [explicit numeric amendment](https://github.com/gmcnicol/DeclareFX/issues/6#issuecomment-7219873850)
+resolves the [numeric policy blocker](docs/numeric-blocker.md): UI arithmetic uses
+native EEL2 underflow, not promised JavaScript parity. Generated executable numbers
+use plain decimal notation; scientific numeric tokens in author DSP are diagnosed,
+not rewritten.
 
 ## Development
 

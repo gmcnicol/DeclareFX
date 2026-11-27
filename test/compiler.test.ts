@@ -198,6 +198,32 @@ test('compiler rejects statically invalid arithmetic and preserves lazy finite-e
   assert.ok(constant.diagnostics.some(d => d.category === 'numeric'));
 });
 
+test('compiler defers underflow-sensitive values, branches and lazy operands to guarded native evaluation', async () => {
+  for (const expression of [
+    '1e-310 > 0 ? -1 : 2',
+    '1e-307 > 0 ? 1 / 0 : 2',
+    '1e-150 * 1e-160 > 0 ? -1 : 2',
+    '1e-200 * 1e-200 === 0 ? -1 : 2',
+    '1 / (1e-200 * 1e-200)',
+    '1e-200 / 1e200 !== 0 ? 2 : -1',
+    'app.tiny !== 0 ? -1 : 2',
+    'this.height !== 0 ? -1 : 2',
+    '(1e-310 > 0 && 1 / 0 > 0) ? 1 : 2',
+    '(1e-310 <= 0 || 1 / 0 > 0) ? 1 : 2',
+  ]) {
+    const ui = minimal(`width = { ${expression} }, height = { 1 / 1e308 }`)
+      .replace('gain: number = 1', `gain: number = 1, tiny: number = 0.${'0'.repeat(309)}1`);
+    const result = await compile({ source: ui, bindings });
+    assert.equal(result.ok, true, `${expression}: ${JSON.stringify(result.diagnostics)}`);
+  }
+  // Integer-only proofs still catch guaranteed failures, not Node underflow outcomes.
+  for (const expression of ['1 / 0', 'app.gain / (2 - 2)', '1e308 * 1e308', 'true ? -1 : 2']) {
+    const result = await compile({ source: minimal(`width = { ${expression} }`), bindings });
+    assert.equal(result.ok, false, expression);
+    assert.ok(result.diagnostics.some(d => d.category === 'numeric'), expression);
+  }
+});
+
 test('compiler keeps upstream warnings, rejects erased syntax and reports trailing directive provenance', async () => {
   const warned = await compile({ source: minimal('width = { Date.now() }'), bindings, filename: 'warning.declare' });
   assert.equal(warned.ok, false);

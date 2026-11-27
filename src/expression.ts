@@ -62,9 +62,10 @@ export function lowerExpression(source: string, resolve: (path: string[]) => Exp
 
 // Compile-time proof only, not an EEL2 executor. Unknown inputs stay unknown.
 export function constantValue(e: Expression, known: ReadonlyMap<number, Scalar>): Scalar | undefined {
-  const finite = (value: Scalar): Scalar => {
+  const finite = (value: Scalar): Scalar | undefined => {
     if (typeof value === 'number' && !Number.isFinite(value)) throw new ExpressionError('numeric', 'Statically invalid or non-finite arithmetic.');
-    return value;
+    // Prove only integer values: fractional/tiny intermediates need native runtime guards, not a guessed host cutoff.
+    return typeof value === 'number' && !Number.isInteger(value) ? undefined : value;
   };
   if (e.kind === 'literal') return finite(e.value);
   if (e.kind === 'read') return known.get(e.slot);
@@ -75,12 +76,12 @@ export function constantValue(e: Expression, known: ReadonlyMap<number, Scalar>)
   if (e.kind === 'conditional') {
     const condition = constantValue(e.condition, known);
     if (condition !== undefined) return constantValue(condition ? e.then : e.else, known);
-    constantValue(e.then, known); constantValue(e.else, known);
     return undefined;
   }
   const left = constantValue(e.left, known);
   if (e.op === '&&' && left === false) return false;
   if (e.op === '||' && left === true) return true;
+  if ((e.op === '&&' || e.op === '||') && left === undefined) return undefined;
   const right = constantValue(e.right, known);
   if (e.op === '/' && right === 0) throw new ExpressionError('numeric', 'Statically provable division by zero.');
   if (left === undefined || right === undefined) return undefined;

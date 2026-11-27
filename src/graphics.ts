@@ -1,12 +1,12 @@
+import { decimal } from './numeric.js';
 import type { Expression, TargetProgram } from './target.js';
 
-// shortcut: finite subnormal preservation is unresolved in EEL2; resolve docs/numeric-blocker.md before full subset conformance.
-const scalar = (value: number | boolean): string => typeof value === 'boolean' ? (value ? '1' : '0') : String(value);
+const scalar = (value: number | boolean): string => typeof value === 'boolean' ? (value ? '1' : '0') : decimal(value);
 // EEL2 has byte escapes, not JSON's \\u/\\f. Separate literals stop hex consumption.
 const label = (text: string): string => '"' + text.replace(/[\\"\u0001-\u001f\u007f]/g, char =>
   char === '\\' || char === '"' ? `\\${char}` : `" "\\x${char.charCodeAt(0).toString(16).padStart(2, '0')}" "`) + '"';
 // Check the expression before assignment: EEL2 may filter assigned overflow to zero.
-const finiteResult = (expression: string): string => `(abs(${expression}) <= 1.7976931348623157e308)`;
+const finiteResult = (expression: string): string => `(abs(${expression}) <= ${decimal(Number.MAX_VALUE)})`;
 const s = (id: number): string => `__dfx_ui_s${id}`;
 const v = (id: number): string => `__dfx_ui_v${id}`;
 const d = (id: number): string => `__dfx_ui_d${id}`;
@@ -71,7 +71,7 @@ export function graphics(program: TargetProgram): { init: string; gfx: string } 
     paint += `__dfx_ui_left = max(0, ${nx});\n__dfx_ui_top = max(0, ${ny});\n__dfx_ui_w = min(${s(width)} - max(0, -${nx}), ${s(root.width)} - __dfx_ui_left);\n__dfx_ui_h = min(${s(height)} - max(0, -${ny}), ${s(root.height)} - __dfx_ui_top);\n`;
     if (node.fill) {
       const channels = [1, 3, 5].map(offset => parseInt(node.fill!.slice(offset, offset + 2), 16));
-      paint += `gfx_r = ${channels[0]} / 255;\ngfx_g = ${channels[1]} / 255;\ngfx_b = ${channels[2]} / 255;\ngfx_rect(__dfx_ui_left, __dfx_ui_top, __dfx_ui_w, __dfx_ui_h);\n`;
+      paint += `gfx_r = ${decimal(channels[0])} / 255;\ngfx_g = ${decimal(channels[1])} / 255;\ngfx_b = ${decimal(channels[2])} / 255;\ngfx_rect(__dfx_ui_left, __dfx_ui_top, __dfx_ui_w, __dfx_ui_h);\n`;
     } else {
       paint += `gfx_r = 0; gfx_g = 0; gfx_b = 0;\ngfx_x = ${nx}; gfx_y = ${ny};\ngfx_drawstr(#__dfx_label${node.id}, 0, __dfx_ui_left + __dfx_ui_w, __dfx_ui_top + __dfx_ui_h);\n`;
     }
@@ -118,5 +118,5 @@ __dfx_ui_drag && !__dfx_ui_control_ok ? (__dfx_ui_cancel(););
 !((gfx_ext_flags & 2)) && ${v(root.width)} && ${v(root.height)} ? (
 ${paint});
 `;
-  return { init, gfx: `@gfx ${program.initialSize.width} ${program.initialSize.height}\n${refresh}function __dfx_ui_cancel() (\n__dfx_ui_touch ? (slider_automate(1, 1); __dfx_ui_touch = 0;);\n__dfx_ui_drag = 0;\n);\nfunction __dfx_ui_place() (\n${placement});\n${interaction}` };
+  return { init, gfx: `@gfx ${decimal(program.initialSize.width)} ${decimal(program.initialSize.height)}\n${refresh}function __dfx_ui_cancel() (\n__dfx_ui_touch ? (slider_automate(1, 1); __dfx_ui_touch = 0;);\n__dfx_ui_drag = 0;\n);\nfunction __dfx_ui_place() (\n${placement});\n${interaction}` };
 }

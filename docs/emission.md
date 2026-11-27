@@ -1,8 +1,9 @@
 # Standalone effect compiler and CLI
 
 The subset and ownership resolutions linked in [the spec](implementation-spec.md)
-remain canonical. **Full ticket acceptance is blocked by the unresolved
-[finite-subnormal mechanism](numeric-blocker.md), not only missing host runs.**
+remain canonical, including the [approved numeric amendment](https://github.com/gmcnicol/DeclareFX/issues/6#issuecomment-7219873850).
+The [numeric policy blocker is resolved](numeric-blocker.md); cross-platform CI,
+actual host validation and final Standards/Spec review remain separate gates.
 `compile()` still returns only the validated target program.
 `buildEffect` from `dist/src/effect.js` adds DSP validation and standalone emission:
 
@@ -59,8 +60,11 @@ an intentional reviewable output change, not a way to silence a failing test.
   dimensions. Dependency changes include validity transitions; exact `===`/`!==`
   comparisons do not discard small changes. Lazy expressions evaluate only
   taken branches; arithmetic results are checked before assignment can filter
-  overflow to zero, including explicit zero-divisor checks. This does not solve
-  the finite-subnormal preservation blocker.
+  overflow to zero, including explicit zero-divisor checks. UI arithmetic uses
+  native EEL2 underflow: tiny literals, stored values and intermediates, including
+  tiny normals, may become zero. Exact comparisons operate on represented values,
+  not promised Node values. No universal cutoff or cross-host tiny-branch parity
+  is claimed; underflow-created zero denominators are guarded.
 - Invalid geometry retains its last valid scalar, initially zero. Separate
   validity prevents a retained positive width from permitting a bad drag.
   `__dfx_ui_numeric_error` is a sticky bounded graphics diagnostic flag, not a
@@ -86,6 +90,14 @@ No generated layout, string work, UI traversal, indexed-memory allocation or
 retry loop runs in `@block`/`@sample`. Trusted author DSP may of course perform
 its own processing and use its own scratch/indexed memory.
 
+All generated executable numbers use the shared finite plain-decimal formatter:
+source constants, slot/default initializers, slider defaults, initial viewport
+sizes and maximum-finite guards. It deterministically expands the shortest
+finite decimal spelling without exponent syntax or dependencies. Non-finite
+inputs remain invalid. Constant validation conservatively defers fractional and
+underflow-sensitive proofs to the existing guarded runtime, not a software-float
+runtime or global rounding/flushing policy.
+
 ## DSP boundary and limits
 
 Optional `@init`/`@block` and required `@sample` are assembled once each. Their
@@ -97,6 +109,10 @@ author graphics/mouse resources, parameter-notification APIs, alias/native
 writes and definitions/shadowing. Known mutating API output arguments are
 checked too. Init-defined helpers may read the alias when called later; direct
 init execution, including statically visible helper calls, may not read it.
+Executable scientific numeric tokens are rejected with `numeric/DFX_DSP_NUMBER`
+and source coordinates rather than silently rewritten. Comments, quoted strings
+and identifier names containing exponent-like text are not numeric tokens. Author
+DSP is otherwise preserved; no generated underflow/rounding policy is applied to it.
 
 This is **not an EEL2 compiler or sandbox**. It diagnoses detectable ownership
 conflicts; it does not prove arbitrary DSP syntax, termination, dynamic string
@@ -144,7 +160,7 @@ Context7 quota was exhausted, so official sources were fetched directly:
 - [Functions, private parameters and namespace behavior](https://www.reaper.fm/sdk/js/userfunc.php)
 - [Strings and adjacent literal concatenation](https://www.reaper.fm/sdk/js/strings.php)
 - [Official WDL EEL2 escape decoder](https://github.com/justinfrankel/WDL/blob/6a67ec5788ca6ee252b19cd8071796db49d763a7/WDL/eel2/nseel-eval.c)
-- [Numeric mechanism source evidence and unresolved acceptance](numeric-blocker.md)
+- [Resolved numeric policy and historical source evidence](numeric-blocker.md)
 - [Node 24 filesystem APIs](https://nodejs.org/docs/latest-v24.x/api/fs.html)
 
 Compiler/CLI/golden tests and the independent arithmetic model are **not EEL2
