@@ -100,12 +100,18 @@ decoded literal, including actual NUL/unpaired surrogate rejection.
 The representation uses scalar slots/static strings only; no indexed-memory
 allocator or general runtime is introduced. Static constant propagation rejects
 provable invalid arithmetic and negative sizes, respecting known short-circuit
-branches. Numeric proofs conservatively retain only integer values; fractional
-literals/results and branches or lazy operands depending on unknown values are
-deferred to guarded runtime evaluation. This is an analysis limit, not a host
-underflow cutoff or source restriction. Clear guaranteed failures such as literal
-division by zero and integer-operand overflow remain rejected. Runtime-dependent
-validity is an emitter obligation, not something this TypeScript analysis proves
+branches. Ordinary fractional proofs reject negative sizes such as `-0.5` and
+`0.5 - 1`, zero divisors such as `1 / (0.5 - 0.5)`, and overflow such as
+`1e308 / 0.5`; untaken invalid branches remain accepted. For a small conservative
+analysis domain, numeric proofs retain zero or magnitudes at least
+`Number.EPSILON` (unit-scale roundoff, 2^-52). This deliberately coarse **analysis
+limit is not an EEL2 underflow cutoff**, a backend preservation claim, a source
+restriction or runtime rounding. Many safe small values are intentionally unknown.
+Nonzero literals/results below that analysis domain, a zero quotient from a
+nonzero numerator (Node underflow), and branches/lazy operands depending on any
+unknown value defer to guarded native evaluation. Uncertainty propagates through
+root constants and geometry reads. Clear literal division by zero stays rejected.
+Runtime-dependent validity is an emitter obligation, not something this analysis proves
 about EEL2. No software floats, global rounding/flushing or blanket tiny-literal
 rejection is introduced. Generated numeric literals use a shared plain-decimal
 formatter, including slot initializers and source constants (see [emission](emission.md)).

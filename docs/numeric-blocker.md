@@ -17,13 +17,17 @@ rewriting; comments, strings and identifiers are excluded. Non-finite inputs,
 overflow and division-by-zero safety remain guarded, including denominators that
 underflow to zero. Lazy evaluation, retained invalid geometry and safe gain remain.
 
-Compile-time validation conservatively proves only integer numeric values;
-fractional/tiny results and uncertain lazy branches defer to guarded runtime.
-This is an analysis limit, not a host cutoff. No blanket tiny-literal rejection,
-software floats, global rounding/flushing or forced author-DSP flushing is added.
+Compile-time validation rejects ordinary fractional constant failures while
+conservatively deferring tiny values/intermediates and uncertain lazy branches
+to guarded runtime. The deliberately coarse [analysis domain](compiler.md) and
+zero-quotient underflow handling do not claim a host cutoff or preservation rule.
+No blanket tiny-literal rejection, software floats, global rounding/flushing or
+forced author-DSP flushing is added.
 Public compiler/build/CLI regressions are structural/model evidence only.
-Three-platform CI, actual REAPER numeric/audio/UI evidence and final Standards/Spec
-review remain gates; policy resolution does not make the whole proof complete.
+[Initial three-platform CI passed](proof-evidence.md) at `8b89ec6`. Independent
+Standards/Spec review found one fractional-proof defect, now fixed; the new fixed
+revision still needs actual matrix revalidation. Real REAPER numeric/audio/UI
+and performance evidence remains entirely UNRUN under [handoff #15](https://github.com/gmcnicol/DeclareFX/issues/15).
 
 ## Historical counterexample to the superseded preservation requirement
 
@@ -93,6 +97,6 @@ Actual REAPER experiments should include the counterexample and runtime
 underflow/overflow/division/exact-comparison cases, with exact host/build/OS/CPU
 and output recorded. Ordinary gain 0/1/2 renders within `1e-6` do not measure
 underflow behavior: tiny values can change branches with visible geometry
-consequences. No actual EEL2/REAPER execution, audio/UI validation, three-platform
-CI or final two-axis review is claimed by this fix. Track those remaining gates
-separately; do not close the whole proof on the strength of compiler tests.
+consequences. No actual EEL2/REAPER execution or audio/UI validation is claimed.
+Track the [actual compiler CI/review checkpoint and pending fix revalidation](proof-evidence.md)
+separately; do not close real-host gates on the strength of compiler tests.

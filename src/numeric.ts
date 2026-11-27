@@ -1,3 +1,5 @@
+export const finiteGain = (value: string): string => `__dfx_finite(${value}) ? min(2, max(0, ${value})) : 1`;
+
 // Expand the shortest finite decimal spelling without changing its digits.
 export function decimal(value: number): string {
   if (!Number.isFinite(value)) throw new RangeError('Generated numeric literals must be finite.');

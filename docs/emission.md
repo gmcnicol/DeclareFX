@@ -94,9 +94,12 @@ All generated executable numbers use the shared finite plain-decimal formatter:
 source constants, slot/default initializers, slider defaults, initial viewport
 sizes and maximum-finite guards. It deterministically expands the shortest
 finite decimal spelling without exponent syntax or dependencies. Non-finite
-inputs remain invalid. Constant validation conservatively defers fractional and
-underflow-sensitive proofs to the existing guarded runtime, not a software-float
-runtime or global rounding/flushing policy.
+inputs remain invalid. Constant validation rejects ordinary provably invalid
+fractions and defers uncertain tiny literals/intermediates/branches to guarded
+runtime; its deliberately coarse [proof domain](compiler.md) is not a backend
+underflow cutoff, software-float runtime or global rounding/flushing policy.
+The shared TypeScript finite-gain emission helper keeps audio/UI clamp/fallback
+policy identical without sharing their scratch or adding a generated function.
 
 ## DSP boundary and limits
 
@@ -146,8 +149,9 @@ previous output untouched.
 This protects ordinary local regeneration, not hostile concurrent filesystem
 mutation. There is no portable compare-and-rename transaction against an
 adversary swapping directories/files after the final check, nor a power-loss
-recovery/directory-fsync guarantee. Three-OS/filesystem validation remains the
-evidence ticket's gate; local Linux tests are not cross-platform evidence.
+recovery/directory-fsync guarantee. The initial three-OS compiler/publication
+matrix passed at `8b89ec6` ([actual evidence](proof-evidence.md)); the final-review
+fix still needs a new exact-SHA matrix run. Neither matrix proves every filesystem.
 
 ## References and evidence boundary
 
