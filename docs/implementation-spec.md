@@ -4,8 +4,9 @@ Status: pinned inputs/build, checked subset-v1 lowering, standalone JSFX
 emission and explicit CLI implemented. Initial three-OS compiler CI passed at
 `8b89ec6439eb1c2d01377a39056265e1e2079008`. Post-review `e680212` fixed the
 fractional-proof finding but failed Windows concurrent-reader publication.
-The bounded rename-retry follow-up requires a new actual exact-SHA matrix after
-merge ([run evidence](proof-evidence.md)). Real-host evidence remains entirely
+The bounded rename-retry follow-up passed actual run **46020685164** at exact
+merge **`ba5f8ea585e26b4cd822fae18a18c12e65ae391a`**: all three OS jobs and
+byte comparison ([run evidence](proof-evidence.md)). Real-host evidence remains entirely
 UNRUN. The [explicit numeric amendment](https://github.com/gmcnicol/DeclareFX/issues/6#issuecomment-7219873850)
 resolves the [numeric policy blocker](numeric-blocker.md), not those evidence
 gates. This is the ordered implementation handoff for the
@@ -178,13 +179,13 @@ The detailed, maintained matrix and artifact collection sequence are in
 
 | Gate | Status / evidence |
 | --- | --- |
-| Pinned artifact/notices; frozen install/build/check/tests/vendor | **Initial three-OS PASS at `8b89ec6`**, exact reference tools; 42/42 compiled tests, 2/2 vendor checks per OS. New fix requires matrix revalidation |
-| Compiler/CLI, full golden, safe publication, repeated clean relocated build identity | **Initial three-OS PASS**, complete input/dist/output equality; structural/static/model evidence, not EEL2 execution |
-| Linux/macOS/Windows workflow and artifact comparison | **Initial actual run all passed**; post-review `e680212` **FAILED Windows publication and comparison**. [Actual runs](proof-evidence.md); publication-fix SHA/run pending fresh merger |
+| Pinned artifact/notices; frozen install/build/check/tests/vendor | **Three-OS PASS at `ba5f8ea`**, exact reference tools; 47/47 compiled tests, 2/2 vendor checks per OS |
+| Compiler/CLI, full golden, safe publication, repeated clean relocated build identity | **Three-OS PASS at `ba5f8ea`**, complete input/dist/output equality and unchanged concurrent-reader test; structural/static/model evidence, not EEL2 execution |
+| Linux/macOS/Windows workflow and artifact comparison | **Actual run 46020685164 all passed** at `ba5f8ea`; initial success and intervening `e680212` Windows/comparison **FAILURE** remain in [history](proof-evidence.md) |
 | Upstream clean rebuild / source-to-bundle parity | **Unrun; not required** by the selected artifact route |
 | REAPER load, numerical audio, automation/gestures/interruption, UI/HiDPI/reload | **All UNRUN**; [complete protocol and per-platform status](host-validation.md). [Concrete handoff #15](https://github.com/gmcnicol/DeclareFX/issues/15), outside parent map, depends on #14 |
 | Performance | **Unmeasured**; no CPU, audio, UI or latency claims |
-| Final independent Standards/Spec review | **Completed independently in parallel since `78c24d5`**: 0 hard Standards findings; 2 optional improvements addressed; 1 Spec P2 fixed with public regressions. Final merge/matrix revalidation pending |
+| Final independent Standards/Spec review | **Completed independently in parallel since `78c24d5`**: 0 hard Standards findings; 2 optional improvements addressed; 1 Spec P2 fixed with public regressions. Merged and revalidated in actual run 46020685164; new Windows publication defect separately fixed/revalidated. No host claim |
 
 The native UI-underflow policy blocker is resolved by the explicit amendment;
 actual host validation is not. Preserve the numeric guards and plain-decimal

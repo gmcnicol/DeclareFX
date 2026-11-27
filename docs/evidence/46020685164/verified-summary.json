@@ -1,0 +1,1117 @@
+{
+  "revision": "ba5f8ea585e26b4cd822fae18a18c12e65ae391a",
+  "runUrl": "https://github.com/gmcnicol/DeclareFX/actions/runs/46020685164",
+  "attempt": 1,
+  "conclusion": "success",
+  "platforms": [
+    {
+      "platform": "linux",
+      "report": {
+        "status": "passed",
+        "revision": "ba5f8ea585e26b4cd822fae18a18c12e65ae391a",
+        "worktreeStatus": "",
+        "runUrl": "https://github.com/gmcnicol/DeclareFX/actions/runs/46020685164",
+        "environment": {
+          "node": "v24.16.0",
+          "pnpm": "12.23.0",
+          "platform": "linux",
+          "arch": "x64",
+          "os": "Linux",
+          "release": "7.0.0-1020-azure",
+          "version": "#21-Ubuntu SMP PREEMPT Tue Oct 27 22:34:38 UTC 2026",
+          "imageOS": "ubuntu26",
+          "imageVersion": "20261116.202.1",
+          "runnerOS": "Linux",
+          "runnerArch": "X64",
+          "typescript": "5.9.3"
+        },
+        "commands": [
+          {
+            "directory": "/tmp/declarefx-reproducibility-dhpfCY/checkout-one",
+            "command": [
+              "pnpm",
+              "install",
+              "--frozen-lockfile"
+            ],
+            "log": "1-install.log",
+            "status": 0,
+            "signal": null
+          },
+          {
+            "directory": "/tmp/declarefx-reproducibility-dhpfCY/checkout-one",
+            "command": [
+              "pnpm",
+              "build"
+            ],
+            "log": "1-build.log",
+            "status": 0,
+            "signal": null
+          },
+          {
+            "directory": "/tmp/declarefx-reproducibility-dhpfCY/checkout-one",
+            "command": [
+              "/opt/hostedtoolcache/node/24.16.0/x64/bin/node",
+              "dist/src/cli.js",
+              "build",
+              "examples/gain.declare",
+              "--bindings",
+              "examples/gain.bindings.json",
+              "--dsp",
+              "examples/gain.dsp.eel",
+              "--out",
+              "built.jsfx"
+            ],
+            "log": "1-cli.log",
+            "status": 0,
+            "signal": null
+          },
+          {
+            "directory": "/tmp/declarefx-reproducibility-dhpfCY/different path checkout-two",
+            "command": [
+              "pnpm",
+              "install",
+              "--frozen-lockfile"
+            ],
+            "log": "2-install.log",
+            "status": 0,
+            "signal": null
+          },
+          {
+            "directory": "/tmp/declarefx-reproducibility-dhpfCY/different path checkout-two",
+            "command": [
+              "pnpm",
+              "build"
+            ],
+            "log": "2-build.log",
+            "status": 0,
+            "signal": null
+          },
+          {
+            "directory": "/tmp/declarefx-reproducibility-dhpfCY/different path checkout-two",
+            "command": [
+              "/opt/hostedtoolcache/node/24.16.0/x64/bin/node",
+              "dist/src/cli.js",
+              "build",
+              "examples/gain.declare",
+              "--bindings",
+              "examples/gain.bindings.json",
+              "--dsp",
+              "examples/gain.dsp.eel",
+              "--out",
+              "built.jsfx"
+            ],
+            "log": "2-cli.log",
+            "status": 0,
+            "signal": null
+          }
+        ],
+        "goldenSha256": "89a537274f8932bd0eeda87838639054aeee254f721c9dc007fd72088b5a804d"
+      },
+      "testCounts": {
+        "test": {
+          "tests": 47,
+          "pass": 47,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        "vendor": {
+          "tests": 2,
+          "pass": 2,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      "setupLog": "actions-logs/Proof (linux)/1_Set up job.txt",
+      "setupSha256": "2a7293e625a0498ed467af86a26652d3d8f768394b2eeaa0e88c73356d689e6b",
+      "gateLogHashes": {
+        "worktree.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "vendor.log": "2002fd591cf8a07625023c2a7165b98348b6ae2dff5f595f3f102498f44f6e47",
+        "test.log": "88a1812c5724292dac1aa147c7eb6e20cc022773611cc9304fa463414ed0f4b8",
+        "reproducibility.log": "6713ae7be20a25845c3a3906a51d9752adbb7591cee3a6af0891dba879c12148",
+        "install.log": "bc43181aaaf0037f36b4ede6e725e1338b53cd268e8765c83ad5ef6d81159010",
+        "build.log": "b26bf4ca7b7c8125e2b277b66625e7e423b5d4e450844158256ff6de414ae2f8",
+        "environment.log": "cceb49466cd9464b2396defb4e1d25a74bc1af84be1bee05da49c6d6131df3bb",
+        "check.log": "8366207267355d3e3d5bf3bf6e8c94c5f93f6078c34f08973fa2b38cdda6cc92"
+      }
+    },
+    {
+      "platform": "darwin",
+      "report": {
+        "status": "passed",
+        "revision": "ba5f8ea585e26b4cd822fae18a18c12e65ae391a",
+        "worktreeStatus": "",
+        "runUrl": "https://github.com/gmcnicol/DeclareFX/actions/runs/46020685164",
+        "environment": {
+          "node": "v24.16.0",
+          "pnpm": "12.23.0",
+          "platform": "darwin",
+          "arch": "arm64",
+          "os": "Darwin",
+          "release": "25.6.0",
+          "version": "Darwin Kernel Version 25.6.0: Mon Oct 12 00:39:04 PDT 2026; root:xnu-12377.161.15.701.48~2/RELEASE_ARM64_VMAPPLE",
+          "imageOS": "macos26",
+          "imageVersion": "20261123.0526.1",
+          "runnerOS": "macOS",
+          "runnerArch": "ARM64",
+          "typescript": "5.9.3"
+        },
+        "commands": [
+          {
+            "directory": "/var/folders/q2/p1t6rgxj5fj32g1dc7dmd49r0000gn/T/declarefx-reproducibility-RBGGVj/checkout-one",
+            "command": [
+              "pnpm",
+              "install",
+              "--frozen-lockfile"
+            ],
+            "log": "1-install.log",
+            "status": 0,
+            "signal": null
+          },
+          {
+            "directory": "/var/folders/q2/p1t6rgxj5fj32g1dc7dmd49r0000gn/T/declarefx-reproducibility-RBGGVj/checkout-one",
+            "command": [
+              "pnpm",
+              "build"
+            ],
+            "log": "1-build.log",
+            "status": 0,
+            "signal": null
+          },
+          {
+            "directory": "/var/folders/q2/p1t6rgxj5fj32g1dc7dmd49r0000gn/T/declarefx-reproducibility-RBGGVj/checkout-one",
+            "command": [
+              "/Users/runner/hostedtoolcache/node/24.16.0/arm64/bin/node",
+              "dist/src/cli.js",
+              "build",
+              "examples/gain.declare",
+              "--bindings",
+              "examples/gain.bindings.json",
+              "--dsp",
+              "examples/gain.dsp.eel",
+              "--out",
+              "built.jsfx"
+            ],
+            "log": "1-cli.log",
+            "status": 0,
+            "signal": null
+          },
+          {
+            "directory": "/var/folders/q2/p1t6rgxj5fj32g1dc7dmd49r0000gn/T/declarefx-reproducibility-RBGGVj/different path checkout-two",
+            "command": [
+              "pnpm",
+              "install",
+              "--frozen-lockfile"
+            ],
+            "log": "2-install.log",
+            "status": 0,
+            "signal": null
+          },
+          {
+            "directory": "/var/folders/q2/p1t6rgxj5fj32g1dc7dmd49r0000gn/T/declarefx-reproducibility-RBGGVj/different path checkout-two",
+            "command": [
+              "pnpm",
+              "build"
+            ],
+            "log": "2-build.log",
+            "status": 0,
+            "signal": null
+          },
+          {
+            "directory": "/var/folders/q2/p1t6rgxj5fj32g1dc7dmd49r0000gn/T/declarefx-reproducibility-RBGGVj/different path checkout-two",
+            "command": [
+              "/Users/runner/hostedtoolcache/node/24.16.0/arm64/bin/node",
+              "dist/src/cli.js",
+              "build",
+              "examples/gain.declare",
+              "--bindings",
+              "examples/gain.bindings.json",
+              "--dsp",
+              "examples/gain.dsp.eel",
+              "--out",
+              "built.jsfx"
+            ],
+            "log": "2-cli.log",
+            "status": 0,
+            "signal": null
+          }
+        ],
+        "goldenSha256": "89a537274f8932bd0eeda87838639054aeee254f721c9dc007fd72088b5a804d"
+      },
+      "testCounts": {
+        "test": {
+          "tests": 47,
+          "pass": 47,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        "vendor": {
+          "tests": 2,
+          "pass": 2,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      "setupLog": "actions-logs/Proof (darwin)/1_Set up job.txt",
+      "setupSha256": "9c75dcea021029d5767f6184fde46156c9445e00cba74ed394802b30c43dfe0b",
+      "gateLogHashes": {
+        "test.log": "aaab99a5478aae63aad78280e430de067fa01077876c534c0732ce484688ab6c",
+        "worktree.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "vendor.log": "b833eb27189ab8eb7785e3e6433e83c0a645e9d371c49a7d1f42fd50401704f8",
+        "reproducibility.log": "10aaa6e786607a3173ad4293435b76a7f784580ff30498ef3add922bd0110445",
+        "check.log": "8366207267355d3e3d5bf3bf6e8c94c5f93f6078c34f08973fa2b38cdda6cc92",
+        "build.log": "b26bf4ca7b7c8125e2b277b66625e7e423b5d4e450844158256ff6de414ae2f8",
+        "install.log": "7066d0360615fb5646038c61caef0c2ad76d32c897c753552850d30415aa8d55",
+        "environment.log": "5d24510c1107c852ef30e864ef0a0f67a98e9cca5c61343010a240511cfcdbff"
+      }
+    },
+    {
+      "platform": "win32",
+      "report": {
+        "status": "passed",
+        "revision": "ba5f8ea585e26b4cd822fae18a18c12e65ae391a",
+        "worktreeStatus": "",
+        "runUrl": "https://github.com/gmcnicol/DeclareFX/actions/runs/46020685164",
+        "environment": {
+          "node": "v24.16.0",
+          "pnpm": "12.23.0",
+          "platform": "win32",
+          "arch": "x64",
+          "os": "Windows_NT",
+          "release": "10.0.26100",
+          "version": "Windows Server 2025 Datacenter",
+          "imageOS": "win25-vs2026",
+          "imageVersion": "20261123.321.1",
+          "runnerOS": "Windows",
+          "runnerArch": "X64",
+          "typescript": "5.9.3"
+        },
+        "commands": [
+          {
+            "directory": "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\declarefx-reproducibility-oq9Eu4\\checkout-one",
+            "command": [
+              "pnpm",
+              "install",
+              "--frozen-lockfile"
+            ],
+            "log": "1-install.log",
+            "status": 0,
+            "signal": null
+          },
+          {
+            "directory": "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\declarefx-reproducibility-oq9Eu4\\checkout-one",
+            "command": [
+              "pnpm",
+              "build"
+            ],
+            "log": "1-build.log",
+            "status": 0,
+            "signal": null
+          },
+          {
+            "directory": "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\declarefx-reproducibility-oq9Eu4\\checkout-one",
+            "command": [
+              "C:\\hostedtoolcache\\windows\\node\\24.16.0\\x64\\node.exe",
+              "dist/src/cli.js",
+              "build",
+              "examples/gain.declare",
+              "--bindings",
+              "examples/gain.bindings.json",
+              "--dsp",
+              "examples/gain.dsp.eel",
+              "--out",
+              "built.jsfx"
+            ],
+            "log": "1-cli.log",
+            "status": 0,
+            "signal": null
+          },
+          {
+            "directory": "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\declarefx-reproducibility-oq9Eu4\\different path checkout-two",
+            "command": [
+              "pnpm",
+              "install",
+              "--frozen-lockfile"
+            ],
+            "log": "2-install.log",
+            "status": 0,
+            "signal": null
+          },
+          {
+            "directory": "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\declarefx-reproducibility-oq9Eu4\\different path checkout-two",
+            "command": [
+              "pnpm",
+              "build"
+            ],
+            "log": "2-build.log",
+            "status": 0,
+            "signal": null
+          },
+          {
+            "directory": "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\declarefx-reproducibility-oq9Eu4\\different path checkout-two",
+            "command": [
+              "C:\\hostedtoolcache\\windows\\node\\24.16.0\\x64\\node.exe",
+              "dist/src/cli.js",
+              "build",
+              "examples/gain.declare",
+              "--bindings",
+              "examples/gain.bindings.json",
+              "--dsp",
+              "examples/gain.dsp.eel",
+              "--out",
+              "built.jsfx"
+            ],
+            "log": "2-cli.log",
+            "status": 0,
+            "signal": null
+          }
+        ],
+        "goldenSha256": "89a537274f8932bd0eeda87838639054aeee254f721c9dc007fd72088b5a804d"
+      },
+      "testCounts": {
+        "test": {
+          "tests": 47,
+          "pass": 47,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        "vendor": {
+          "tests": 2,
+          "pass": 2,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      "setupLog": "actions-logs/Proof (win32)/1_Set up job.txt",
+      "setupSha256": "8261778069ef74b58d6eefdd92df6fb7a2b5823e906b22c3feab43244e6080c6",
+      "gateLogHashes": {
+        "worktree.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "vendor.log": "db9e23572711a91ea62f7708bf44f7e33d26367216124b162aae4cd0f7a106e6",
+        "test.log": "96f350d3e343b628d2900584522e4213fab37aa1fa11e21474bbd393fbc793a2",
+        "reproducibility.log": "afd522629a0fb372ce7890ead1df7667d19c8349710fb5a8678fb2c245f7bc73",
+        "install.log": "e694fdfa606e29cd4c92b18e75edfeb67233a9e274c772ee7d682f13ffe96ea4",
+        "check.log": "8366207267355d3e3d5bf3bf6e8c94c5f93f6078c34f08973fa2b38cdda6cc92",
+        "environment.log": "11d8fd809e8ba568d43fc9caae70285350eae52c29c9b12c989e80a53e34ac18",
+        "build.log": "b26bf4ca7b7c8125e2b277b66625e7e423b5d4e450844158256ff6de414ae2f8"
+      }
+    }
+  ],
+  "jobs": [
+    {
+      "id": 140579246027,
+      "run_id": 46020685164,
+      "workflow_name": "Compiler proof",
+      "head_branch": "implement/declarefx-proof",
+      "run_url": "https://api.github.com/repos/gmcnicol/DeclareFX/actions/runs/46020685164",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOV6MTp88AAAAguy0Pyw",
+      "head_sha": "ba5f8ea585e26b4cd822fae18a18c12e65ae391a",
+      "url": "https://api.github.com/repos/gmcnicol/DeclareFX/actions/jobs/140579246027",
+      "html_url": "https://github.com/gmcnicol/DeclareFX/actions/runs/46020685164/job/140579246027",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-11-27T14:58:27Z",
+      "started_at": "2026-11-27T14:58:30Z",
+      "completed_at": "2026-11-27T15:00:22Z",
+      "name": "Proof (win32)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-11-27T14:58:31Z",
+          "completed_at": "2026-11-27T14:58:33Z"
+        },
+        {
+          "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-11-27T14:58:33Z",
+          "completed_at": "2026-11-27T14:58:40Z"
+        },
+        {
+          "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-11-27T14:58:40Z",
+          "completed_at": "2026-11-27T14:58:48Z"
+        },
+        {
+          "name": "Run pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-11-27T14:58:49Z",
+          "completed_at": "2026-11-27T14:59:01Z"
+        },
+        {
+          "name": "Record actual environment",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-11-27T14:59:01Z",
+          "completed_at": "2026-11-27T14:59:01Z"
+        },
+        {
+          "name": "Clean frozen install",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-11-27T14:59:01Z",
+          "completed_at": "2026-11-27T14:59:02Z"
+        },
+        {
+          "name": "Clean ESM build",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-11-27T14:59:02Z",
+          "completed_at": "2026-11-27T14:59:06Z"
+        },
+        {
+          "name": "Type check",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-11-27T14:59:06Z",
+          "completed_at": "2026-11-27T14:59:09Z"
+        },
+        {
+          "name": "Compiled public-interface tests and complete golden",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-11-27T14:59:09Z",
+          "completed_at": "2026-11-27T15:00:04Z"
+        },
+        {
+          "name": "Exact vendor artifact and notices",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-11-27T15:00:04Z",
+          "completed_at": "2026-11-27T15:00:08Z"
+        },
+        {
+          "name": "Clean relocated builds and reproducibility evidence",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-11-27T15:00:08Z",
+          "completed_at": "2026-11-27T15:00:17Z"
+        },
+        {
+          "name": "No tracked input changes",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-11-27T15:00:17Z",
+          "completed_at": "2026-11-27T15:00:17Z"
+        },
+        {
+          "name": "Preserve logs, versions, hashes and generated bytes",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-11-27T15:00:17Z",
+          "completed_at": "2026-11-27T15:00:18Z"
+        },
+        {
+          "name": "Post Run pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 24,
+          "started_at": "2026-11-27T15:00:18Z",
+          "completed_at": "2026-11-27T15:00:19Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 25,
+          "started_at": "2026-11-27T15:00:19Z",
+          "completed_at": "2026-11-27T15:00:19Z"
+        },
+        {
+          "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 26,
+          "started_at": "2026-11-27T15:00:19Z",
+          "completed_at": "2026-11-27T15:00:21Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 27,
+          "started_at": "2026-11-27T15:00:21Z",
+          "completed_at": "2026-11-27T15:00:21Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/gmcnicol/DeclareFX/check-runs/140579246027",
+      "labels": [
+        "windows-latest"
+      ],
+      "runner_id": 1000000732,
+      "runner_name": "GitHub Actions 1000000732",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 140579246507,
+      "run_id": 46020685164,
+      "workflow_name": "Compiler proof",
+      "head_branch": "implement/declarefx-proof",
+      "run_url": "https://api.github.com/repos/gmcnicol/DeclareFX/actions/runs/46020685164",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOV6MTp88AAAAguy0Rqw",
+      "head_sha": "ba5f8ea585e26b4cd822fae18a18c12e65ae391a",
+      "url": "https://api.github.com/repos/gmcnicol/DeclareFX/actions/jobs/140579246507",
+      "html_url": "https://github.com/gmcnicol/DeclareFX/actions/runs/46020685164/job/140579246507",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-11-27T14:58:27Z",
+      "started_at": "2026-11-27T14:58:29Z",
+      "completed_at": "2026-11-27T14:59:43Z",
+      "name": "Proof (linux)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-11-27T14:58:30Z",
+          "completed_at": "2026-11-27T14:58:31Z"
+        },
+        {
+          "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-11-27T14:58:31Z",
+          "completed_at": "2026-11-27T14:58:32Z"
+        },
+        {
+          "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-11-27T14:58:32Z",
+          "completed_at": "2026-11-27T14:58:37Z"
+        },
+        {
+          "name": "Run pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-11-27T14:58:37Z",
+          "completed_at": "2026-11-27T14:58:44Z"
+        },
+        {
+          "name": "Record actual environment",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-11-27T14:58:44Z",
+          "completed_at": "2026-11-27T14:58:44Z"
+        },
+        {
+          "name": "Clean frozen install",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-11-27T14:58:44Z",
+          "completed_at": "2026-11-27T14:58:45Z"
+        },
+        {
+          "name": "Clean ESM build",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-11-27T14:58:45Z",
+          "completed_at": "2026-11-27T14:58:47Z"
+        },
+        {
+          "name": "Type check",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-11-27T14:58:47Z",
+          "completed_at": "2026-11-27T14:58:49Z"
+        },
+        {
+          "name": "Compiled public-interface tests and complete golden",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-11-27T14:58:49Z",
+          "completed_at": "2026-11-27T14:59:29Z"
+        },
+        {
+          "name": "Exact vendor artifact and notices",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-11-27T14:59:29Z",
+          "completed_at": "2026-11-27T14:59:32Z"
+        },
+        {
+          "name": "Clean relocated builds and reproducibility evidence",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-11-27T14:59:32Z",
+          "completed_at": "2026-11-27T14:59:38Z"
+        },
+        {
+          "name": "No tracked input changes",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-11-27T14:59:38Z",
+          "completed_at": "2026-11-27T14:59:38Z"
+        },
+        {
+          "name": "Preserve logs, versions, hashes and generated bytes",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-11-27T14:59:38Z",
+          "completed_at": "2026-11-27T14:59:39Z"
+        },
+        {
+          "name": "Post Run pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 24,
+          "started_at": "2026-11-27T14:59:39Z",
+          "completed_at": "2026-11-27T14:59:40Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 25,
+          "started_at": "2026-11-27T14:59:40Z",
+          "completed_at": "2026-11-27T14:59:40Z"
+        },
+        {
+          "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 26,
+          "started_at": "2026-11-27T14:59:40Z",
+          "completed_at": "2026-11-27T14:59:40Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 27,
+          "started_at": "2026-11-27T14:59:40Z",
+          "completed_at": "2026-11-27T14:59:40Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/gmcnicol/DeclareFX/check-runs/140579246507",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000000733,
+      "runner_name": "GitHub Actions 1000000733",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 140579246592,
+      "run_id": 46020685164,
+      "workflow_name": "Compiler proof",
+      "head_branch": "implement/declarefx-proof",
+      "run_url": "https://api.github.com/repos/gmcnicol/DeclareFX/actions/runs/46020685164",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOV6MTp88AAAAguy0SAA",
+      "head_sha": "ba5f8ea585e26b4cd822fae18a18c12e65ae391a",
+      "url": "https://api.github.com/repos/gmcnicol/DeclareFX/actions/jobs/140579246592",
+      "html_url": "https://github.com/gmcnicol/DeclareFX/actions/runs/46020685164/job/140579246592",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-11-27T14:58:27Z",
+      "started_at": "2026-11-27T14:58:29Z",
+      "completed_at": "2026-11-27T14:59:22Z",
+      "name": "Proof (darwin)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-11-27T14:58:29Z",
+          "completed_at": "2026-11-27T14:58:31Z"
+        },
+        {
+          "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-11-27T14:58:31Z",
+          "completed_at": "2026-11-27T14:58:32Z"
+        },
+        {
+          "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-11-27T14:58:32Z",
+          "completed_at": "2026-11-27T14:58:37Z"
+        },
+        {
+          "name": "Run pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-11-27T14:58:37Z",
+          "completed_at": "2026-11-27T14:58:42Z"
+        },
+        {
+          "name": "Record actual environment",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-11-27T14:58:42Z",
+          "completed_at": "2026-11-27T14:58:42Z"
+        },
+        {
+          "name": "Clean frozen install",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-11-27T14:58:42Z",
+          "completed_at": "2026-11-27T14:58:43Z"
+        },
+        {
+          "name": "Clean ESM build",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-11-27T14:58:43Z",
+          "completed_at": "2026-11-27T14:58:44Z"
+        },
+        {
+          "name": "Type check",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-11-27T14:58:44Z",
+          "completed_at": "2026-11-27T14:58:46Z"
+        },
+        {
+          "name": "Compiled public-interface tests and complete golden",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-11-27T14:58:46Z",
+          "completed_at": "2026-11-27T14:59:11Z"
+        },
+        {
+          "name": "Exact vendor artifact and notices",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-11-27T14:59:11Z",
+          "completed_at": "2026-11-27T14:59:13Z"
+        },
+        {
+          "name": "Clean relocated builds and reproducibility evidence",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-11-27T14:59:13Z",
+          "completed_at": "2026-11-27T14:59:18Z"
+        },
+        {
+          "name": "No tracked input changes",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-11-27T14:59:18Z",
+          "completed_at": "2026-11-27T14:59:18Z"
+        },
+        {
+          "name": "Preserve logs, versions, hashes and generated bytes",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-11-27T14:59:18Z",
+          "completed_at": "2026-11-27T14:59:19Z"
+        },
+        {
+          "name": "Post Run pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 24,
+          "started_at": "2026-11-27T14:59:19Z",
+          "completed_at": "2026-11-27T14:59:19Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 25,
+          "started_at": "2026-11-27T14:59:19Z",
+          "completed_at": "2026-11-27T14:59:19Z"
+        },
+        {
+          "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 26,
+          "started_at": "2026-11-27T14:59:19Z",
+          "completed_at": "2026-11-27T14:59:19Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 27,
+          "started_at": "2026-11-27T14:59:19Z",
+          "completed_at": "2026-11-27T14:59:20Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/gmcnicol/DeclareFX/check-runs/140579246592",
+      "labels": [
+        "macos-latest"
+      ],
+      "runner_id": 1000000734,
+      "runner_name": "GitHub Actions 1000000734",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 140580211640,
+      "run_id": 46020685164,
+      "workflow_name": "Compiler proof",
+      "head_branch": "implement/declarefx-proof",
+      "run_url": "https://api.github.com/repos/gmcnicol/DeclareFX/actions/runs/46020685164",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOV6MTp88AAAAguzvLuA",
+      "head_sha": "ba5f8ea585e26b4cd822fae18a18c12e65ae391a",
+      "url": "https://api.github.com/repos/gmcnicol/DeclareFX/actions/jobs/140580211640",
+      "html_url": "https://github.com/gmcnicol/DeclareFX/actions/runs/46020685164/job/140580211640",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-11-27T15:00:23Z",
+      "started_at": "2026-11-27T15:00:24Z",
+      "completed_at": "2026-11-27T15:00:33Z",
+      "name": "Cross-platform byte identity",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-11-27T15:00:25Z",
+          "completed_at": "2026-11-27T15:00:25Z"
+        },
+        {
+          "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-11-27T15:00:25Z",
+          "completed_at": "2026-11-27T15:00:26Z"
+        },
+        {
+          "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-11-27T15:00:26Z",
+          "completed_at": "2026-11-27T15:00:30Z"
+        },
+        {
+          "name": "Run actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-11-27T15:00:30Z",
+          "completed_at": "2026-11-27T15:00:31Z"
+        },
+        {
+          "name": "Require all three platforms, same revision, inputs, dist and golden",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-11-27T15:00:31Z",
+          "completed_at": "2026-11-27T15:00:31Z"
+        },
+        {
+          "name": "Preserve comparison",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-11-27T15:00:31Z",
+          "completed_at": "2026-11-27T15:00:31Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-11-27T15:00:31Z",
+          "completed_at": "2026-11-27T15:00:31Z"
+        },
+        {
+          "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-11-27T15:00:31Z",
+          "completed_at": "2026-11-27T15:00:32Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-11-27T15:00:32Z",
+          "completed_at": "2026-11-27T15:00:32Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/gmcnicol/DeclareFX/check-runs/140580211640",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000000735,
+      "runner_name": "GitHub Actions 1000000735",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    }
+  ],
+  "artifacts": [
+    {
+      "id": 15207913108,
+      "node_id": "MDg6QXJ0aWZhY3QxNTIwNzkxMzEwOA==",
+      "name": "matrix-comparison",
+      "size_in_bytes": 330,
+      "url": "https://api.github.com/repos/gmcnicol/DeclareFX/actions/artifacts/15207913108",
+      "archive_download_url": "https://api.github.com/repos/gmcnicol/DeclareFX/actions/artifacts/15207913108/zip",
+      "expired": false,
+      "digest": "sha256:146c910b8365ba4d60a399afc05e62277a965215542a95c8110a866d11bc2e59",
+      "created_at": "2026-11-27T15:00:31Z",
+      "updated_at": "2026-11-27T15:00:31Z",
+      "expires_at": "2027-02-25T14:58:27Z",
+      "workflow_run": {
+        "id": 46020685164,
+        "repository_id": 1470305191,
+        "head_repository_id": 1470305191,
+        "head_branch": "implement/declarefx-proof",
+        "head_sha": "ba5f8ea585e26b4cd822fae18a18c12e65ae391a"
+      },
+      "observedSha256": "146c910b8365ba4d60a399afc05e62277a965215542a95c8110a866d11bc2e59",
+      "observedBytes": 330,
+      "expandedBytesVerified": true,
+      "archive": "artifact-archives/matrix-comparison-15207913108.zip"
+    },
+    {
+      "id": 15207908307,
+      "node_id": "MDg6QXJ0aWZhY3QxNTIwNzkwODMwNw==",
+      "name": "proof-darwin",
+      "size_in_bytes": 17118,
+      "url": "https://api.github.com/repos/gmcnicol/DeclareFX/actions/artifacts/15207908307",
+      "archive_download_url": "https://api.github.com/repos/gmcnicol/DeclareFX/actions/artifacts/15207908307/zip",
+      "expired": false,
+      "digest": "sha256:1e8668f47574bbe3de5cd0e8deb1ef3c6d0dbee93d288a354b2867e95f74c719",
+      "created_at": "2026-11-27T14:59:19Z",
+      "updated_at": "2026-11-27T14:59:19Z",
+      "expires_at": "2027-02-25T14:58:27Z",
+      "workflow_run": {
+        "id": 46020685164,
+        "repository_id": 1470305191,
+        "head_repository_id": 1470305191,
+        "head_branch": "implement/declarefx-proof",
+        "head_sha": "ba5f8ea585e26b4cd822fae18a18c12e65ae391a"
+      },
+      "observedSha256": "1e8668f47574bbe3de5cd0e8deb1ef3c6d0dbee93d288a354b2867e95f74c719",
+      "observedBytes": 17118,
+      "expandedBytesVerified": true,
+      "archive": "artifact-archives/proof-darwin-15207908307.zip"
+    },
+    {
+      "id": 15207114716,
+      "node_id": "MDg6QXJ0aWZhY3QxNTIwNzExNDcxNg==",
+      "name": "proof-linux",
+      "size_in_bytes": 17326,
+      "url": "https://api.github.com/repos/gmcnicol/DeclareFX/actions/artifacts/15207114716",
+      "archive_download_url": "https://api.github.com/repos/gmcnicol/DeclareFX/actions/artifacts/15207114716/zip",
+      "expired": false,
+      "digest": "sha256:f0f1228d8a255c0a97416358b53754231e00247198a772dfb3aa5934dc2cea5b",
+      "created_at": "2026-11-27T14:59:39Z",
+      "updated_at": "2026-11-27T14:59:39Z",
+      "expires_at": "2027-02-25T14:58:27Z",
+      "workflow_run": {
+        "id": 46020685164,
+        "repository_id": 1470305191,
+        "head_repository_id": 1470305191,
+        "head_branch": "implement/declarefx-proof",
+        "head_sha": "ba5f8ea585e26b4cd822fae18a18c12e65ae391a"
+      },
+      "observedSha256": "f0f1228d8a255c0a97416358b53754231e00247198a772dfb3aa5934dc2cea5b",
+      "observedBytes": 17326,
+      "expandedBytesVerified": true,
+      "archive": "artifact-archives/proof-linux-15207114716.zip"
+    },
+    {
+      "id": 15206974370,
+      "node_id": "MDg6QXJ0aWZhY3QxNTIwNjk3NDM3MA==",
+      "name": "proof-win32",
+      "size_in_bytes": 17282,
+      "url": "https://api.github.com/repos/gmcnicol/DeclareFX/actions/artifacts/15206974370",
+      "archive_download_url": "https://api.github.com/repos/gmcnicol/DeclareFX/actions/artifacts/15206974370/zip",
+      "expired": false,
+      "digest": "sha256:917aec6776b575d84b782d21e55640801c165abb8beb679868d11db2be565701",
+      "created_at": "2026-11-27T15:00:18Z",
+      "updated_at": "2026-11-27T15:00:18Z",
+      "expires_at": "2027-02-25T14:58:27Z",
+      "workflow_run": {
+        "id": 46020685164,
+        "repository_id": 1470305191,
+        "head_repository_id": 1470305191,
+        "head_branch": "implement/declarefx-proof",
+        "head_sha": "ba5f8ea585e26b4cd822fae18a18c12e65ae391a"
+      },
+      "observedSha256": "917aec6776b575d84b782d21e55640801c165abb8beb679868d11db2be565701",
+      "observedBytes": 17282,
+      "expandedBytesVerified": true,
+      "archive": "artifact-archives/proof-win32-15206974370.zip"
+    }
+  ],
+  "actionsLogZipSha256": "db5d7940d07253b59951c9421045e0532ad604a1cf67c3121cd55cd4a41b7db3",
+  "inputs": {
+    "files": 31,
+    "sha256": "cad0a38276a4a8ad1d37fb4323a1e8777d3936ccd16db796828c7f46e3e49d9e"
+  },
+  "dist": {
+    "files": 15,
+    "sha256": "94df2c8f2b86cd74b7165b6259f1ac2e68ab6a9beed98daf5e64b8657f08658e"
+  },
+  "golden": {
+    "bytes": 22103,
+    "sha256": "89a537274f8932bd0eeda87838639054aeee254f721c9dc007fd72088b5a804d"
+  },
+  "vendorSha256": "f5694d953e8e2df6abf51c113f465904b3fe5797665a4e66206dc16bf533ba3b",
+  "lockfileSha256": "b0f5a75c48bab1e66abb9797a068ff786c6c72fa297b395d65010e32989df41d"
+}

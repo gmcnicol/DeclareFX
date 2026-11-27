@@ -1,0 +1,17 @@
+{
+  "src/cli.js": "ab3aea27975bb4c5faa2c47a698321a05ee425c16e81a89a9be853f946767027",
+  "src/compiler.js": "b667a2eee89e5f3340630c6d6afe389465ab2615f21fb00f47d27debb0b164d9",
+  "src/dsp.js": "c844a7125efbfcab0b1cbef4ce28b1bf3d12e4e099fad9743b049713525b0a15",
+  "src/effect.js": "119f32af6e9ed54b636c0a5546e957bf8457284d3936c2a2c1a7ff8b3322fdea",
+  "src/expression.js": "71107921cd24f941de4e88e4fc899189a5303f73c18cdbd5769523f8a8ea013b",
+  "src/graphics.js": "2a9fb72a64e821c6447730f68f969f3f402aedbcbd860d0506564ebcb7676afe",
+  "src/numeric.js": "61e74c766e3e5541ba58cb6726e67246cccac10f38b0c34790a4b34efca36f42",
+  "src/target.js": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+  "test/cli.test.js": "3d09b390d151bd14ae5d7df59a2e153f5eb10794a35a7da7366159aeef173886",
+  "test/compiler.test.js": "d6b769830833bf6f915550f9a0fbdaa75c6601589eea92394387bd06cd150a11",
+  "test/effect.test.js": "cf45e6af33ae88a279a5d8b3c24998aebb375d36c972bb4cb6a33e577f488089",
+  "test/evidence.test.js": "3f6e527359f0669e19241453dd1f0c8d2d4ba571df16e778c536f265e7d9836b",
+  "test/golden.test.js": "45212d56c5256610922b8c0b2081b3cc08bd70476ae7857d2defcb917b387246",
+  "test/upstream.test.js": "c479bc8ff01e99a8adc7dc5c83170abeb96fa4c90baf06aaf0cb3f6a9acbd47b",
+  "test/vendor.test.js": "ab2282059ea74db1b655c9768f81dc20eea893e90534f4c80b717ff43da92184"
+}

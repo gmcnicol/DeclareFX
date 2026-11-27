@@ -2,9 +2,10 @@
 
 **Initial Linux/macOS/Windows compiler CI: all passed at
 `8b89ec6439eb1c2d01377a39056265e1e2079008`. Post-review run at `e680212`
-FAILED Windows publication and dependent comparison. Bounded publication retry
-fix: new actual exact-SHA matrix pending. Real-host validation: all UNRUN.**
-Do not treat the initial checkpoint as CI coverage of either later fix. No
+FAILED Windows publication and dependent comparison. Publication fix revalidated
+at `ba5f8ea585e26b4cd822fae18a18c12e65ae391a`: actual run **46020685164**
+passed all three OS jobs and comparison. Real-host validation: all UNRUN.**
+The initial checkpoint is historical, not coverage of either later fix. No
 source/header/golden/model check executes EEL2 or proves REAPER behavior.
 
 ## Actual initial automated checkpoint
@@ -78,9 +79,11 @@ Run/job/commit identifiers do not make artifact/log bytes permanent. The committ
 compact snapshot preserves original API responses, complete reports, manifests,
 comparison output and integrity inventories, not full ZIPs/logs/vendor/golden
 duplicates. Full raw copies currently reside under
-`/tmp/declarefx-implementation/ticket-14-merge-evidence/`; `/tmp` is not durable
-archival. Coordinator must archive full downloads before expiry if raw replay is
-required. No new service was provisioned. Hashes cannot reconstruct omitted logs.
+`/tmp/declarefx-implementation/ticket-14-merge-evidence/`. Its full collection also
+has a byte-verified machine-local archive at
+`/home/gareth/.local/share/declarefx/proof-evidence/run-46014620091.tar.gz`
+with sibling `SHA256SUMS`. Neither path promises permanent public storage.
+No new service was provisioned. Hashes cannot reconstruct omitted logs.
 
 ## Failed post-review checkpoint and publication follow-up
 
@@ -108,17 +111,74 @@ The follow-up retains atomic rename and the real-reader test, adding only
 Public CLI subprocess filesystem-boundary fault injection checks transient
 recovery, persistent denial, unrelated I/O failure and destination revalidation.
 These Linux-runnable regressions do **not** reproduce native Windows sharing.
-A fresh merger must run the actual new three-platform matrix; missing/failed
-Windows evidence is never success. [Ticket 13 was reopened](https://github.com/gmcnicol/DeclareFX/issues/13#issuecomment-7221187181);
-ticket 14 and parent completion remain open.
+The fresh merger ran the new matrix successfully as recorded below; this does
+not erase the earlier failed run. [Ticket 13 was reopened](https://github.com/gmcnicol/DeclareFX/issues/13#issuecomment-7221187181);
+tracker resolution remains coordinator-owned, not performed by this merger.
 
 Original failed-run APIs, runner/gate logs and four hash-verified artifact ZIPs
 remain under `/tmp/declarefx-implementation/final-review-merge-evidence/46018203053/`.
-Artifacts expire **2027-02-25T14:41:38Z**; this local collection is not durable
-archival. Run/job links and this failure summary survive, but cannot reconstruct
-omitted raw bytes. Preserve full downloads before expiry if raw audit is needed.
+[Compact original failed-run records](evidence/46018203053/README.md) preserve
+the actual APIs, verification summary and failure/comparison logs. Full collection
+also has a byte-verified machine-local archive at
+`/home/gareth/.local/share/declarefx/proof-evidence/run-46018203053.tar.gz`
+with sibling `SHA256SUMS`. Artifacts expire **2027-02-25T14:41:38Z**.
+Machine-local archival is not permanent public storage; compact facts cannot
+reconstruct omitted raw bytes.
 
-## Review fix and precise remaining automated gate
+## Successful publication-fix checkpoint
+
+[Run 46020685164, attempt 1](https://github.com/gmcnicol/DeclareFX/actions/runs/46020685164),
+**push** at exact merge **`ba5f8ea585e26b4cd822fae18a18c12e65ae391a`**,
+completed **SUCCESS**. Created `2026-11-27T14:58:26Z`, updated
+`2026-11-27T15:00:34Z`. This covers the fractional-proof review fix and the new
+bounded Windows publication fix, not a rerun of the failed revision.
+[Compact genuine collected records](evidence/46020685164/README.md) retain original
+APIs, complete platform reports, setup logs, manifests and verification data.
+
+| Actual job | OS / arch | Actual image / version | Result |
+| --- | --- | --- | --- |
+| [Linux, 140579246507](https://github.com/gmcnicol/DeclareFX/actions/runs/46020685164/job/140579246507) | Ubuntu 26.04.1 LTS, x64; Linux `7.0.0-1020-azure` | `ubuntu-26.04` / `20261116.202.1` | SUCCESS |
+| [macOS, 140579246592](https://github.com/gmcnicol/DeclareFX/actions/runs/46020685164/job/140579246592) | macOS 26.7.2 build 25G332, arm64; Darwin `25.6.0` | `macos-26-arm64` / `20261123.0526.1` | SUCCESS |
+| [Windows, 140579246027](https://github.com/gmcnicol/DeclareFX/actions/runs/46020685164/job/140579246027) | Windows Server 2025 Datacenter `10.0.26100`, x64 | `windows-2025-vs2026` / `20261123.321.1` | SUCCESS |
+| [Comparison, 140580211640](https://github.com/gmcnicol/DeclareFX/actions/runs/46020685164/job/140580211640) | Ubuntu 26.04.1 LTS, x64 | `ubuntu-26.04` / `20261116.202.1` | SUCCESS |
+
+All jobs used Actions runner **2.338.2**. All three proof reports record exact SHA,
+empty worktree status, actual run URL, **Node v24.16.0 / pnpm 12.23.0 /
+TypeScript 5.9.3**. Each OS passed frozen install/build/check, **47/47 tests**
+(including unchanged real concurrent-reader publication and new fault injection),
+**2/2 standalone vendor checks**, **six relocated command exits 0**, tracked-input
+check and upload. No required step failed/skipped/cancelled; test/vendor counts
+have zero failures/cancellations/skips/todo. Comparison used Node v24.16.0, not a
+separate pnpm/TypeScript gate. Complete input/dist/golden equality was independently
+verified from downloads against local/main dist and local relocated outputs.
+
+| Fixed implementation material | Verified identity |
+| --- | --- |
+| Input manifest, 31 files | `cad0a38276a4a8ad1d37fb4323a1e8777d3936ccd16db796828c7f46e3e49d9e` |
+| Dist manifest, 15 files, both locations/all OSes | `94df2c8f2b86cd74b7165b6259f1ac2e68ab6a9beed98daf5e64b8657f08658e` |
+| Complete unchanged golden, all six hosted outputs and local outputs | 22,103 bytes; `89a537274f8932bd0eeda87838639054aeee254f721c9dc007fd72088b5a804d` |
+| Vendor / frozen lock | Unchanged identities in initial table above |
+| Complete Actions log ZIP | `db5d7940d07253b59951c9421045e0532ad604a1cf67c3121cd55cd4a41b7db3` |
+
+All four raw downloaded ZIPs match service SHA-256 and exact size; every expanded
+original entry was byte-verified. Integrity does not substitute for the separately
+verified successful jobs, reports and logs.
+
+| Actual artifact | ZIP bytes | Service = independently downloaded SHA-256 |
+| --- | ---: | --- |
+| [proof-linux, 15207114716](https://github.com/gmcnicol/DeclareFX/actions/runs/46020685164/artifacts/15207114716) | 17326 | `f0f1228d8a255c0a97416358b53754231e00247198a772dfb3aa5934dc2cea5b` |
+| [proof-darwin, 15207908307](https://github.com/gmcnicol/DeclareFX/actions/runs/46020685164/artifacts/15207908307) | 17118 | `1e8668f47574bbe3de5cd0e8deb1ef3c6d0dbee93d288a354b2867e95f74c719` |
+| [proof-win32, 15206974370](https://github.com/gmcnicol/DeclareFX/actions/runs/46020685164/artifacts/15206974370) | 17282 | `917aec6776b575d84b782d21e55640801c165abb8beb679868d11db2be565701` |
+| [matrix-comparison, 15207913108](https://github.com/gmcnicol/DeclareFX/actions/runs/46020685164/artifacts/15207913108) | 330 | `146c910b8365ba4d60a399afc05e62277a965215542a95c8110a866d11bc2e59` |
+
+Artifacts expire **2027-02-25T14:58:27Z**. Full API/ZIP/expanded/log records and
+checksums are outside the repo at
+`/tmp/declarefx-implementation/windows-publication-merge-evidence/46020685164/`.
+Compact committed facts survive GitHub expiry, not omitted full raw bytes. No
+permanent-public-evidence or host behavior claim follows. Bounded retries can
+still fail on persistent locks/permissions; no unsafe unlink/truncate fallback.
+
+## Completed independent review dispositions
 
 Independent Standards and Spec reviewers inspected all authorship changes since
 fixed base `78c24d5` in parallel. Standards: **0 hard findings**, two optional
@@ -129,19 +189,18 @@ The shared proof now rejects ordinary negative sizes, zero divisors and overflow
 with public red/green regressions, while uncertain tiny proofs stay deferred.
 See [analysis limits](compiler.md); no host cutoff/parity claim is introduced.
 
-**The post-review revision failed hosted CI; the publication follow-up still
-needs its own actual run.** The fresh merger must:
+**Review fixes and new publication defect are merged and revalidated** in actual
+run **46020685164** at **`ba5f8ea585e26b4cd822fae18a18c12e65ae391a`**.
+Both optional Standards suggestions were addressed: graphics helpers now use
+`slotValue`/`slotValidity`/`slotDirty`; shared `finiteGain` preserves separate
+audio/UI scratch and the independent model oracle. The Spec P2 public fractional,
+lazy and tiny/zero-quotient regressions pass. The complete golden is unchanged.
 
-1. Merge the committed publication-fix branch into current integration, run local gates,
-   push only `implement/declarefx-proof` and observe its actual new matrix.
-2. Require all three proof jobs and the dependent comparison to succeed at that
-   exact merge SHA. Record actual run/attempt/job URLs, tools/OS/images,
-   conclusions, new input/dist manifests, artifact identities/service digests and
-   independently verified downloaded hashes. Failures remain explicit.
-3. Preserve compact actual results and full-download handoff, and have the
-   coordinator link the final exact tested SHA/run in tracker/result evidence.
-   This document names the actual initial success and post-review failure, not
-   a future passing SHA or circular evidence for its own documentation commit.
+This factual evidence-only update cites the already-tested implementation SHA.
+Its separate final documentation-SHA matrix result is reported externally in
+`/tmp/declarefx-implementation/windows-publication-merge.md` and the coordinator
+handoff, avoiding endless circular self-reference. No source/workflow/test change
+is part of this evidence update. Only coordinator links/resolves tracker work.
 
 The concrete [host handoff issue 15](https://github.com/gmcnicol/DeclareFX/issues/15)
 exists outside the parent map with native dependency on ticket 14. All exact

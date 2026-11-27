@@ -25,8 +25,9 @@ No blanket tiny-literal rejection, software floats, global rounding/flushing or
 forced author-DSP flushing is added.
 Public compiler/build/CLI regressions are structural/model evidence only.
 [Initial three-platform CI passed](proof-evidence.md) at `8b89ec6`. Independent
-Standards/Spec review found one fractional-proof defect, now fixed; the new fixed
-revision still needs actual matrix revalidation. Real REAPER numeric/audio/UI
+Standards/Spec review found one fractional-proof defect, now fixed. Post-review
+CI failed separately on Windows publication at `e680212`; both fixes were
+revalidated at `ba5f8ea` in successful actual run 46020685164. Real REAPER numeric/audio/UI
 and performance evidence remains entirely UNRUN under [handoff #15](https://github.com/gmcnicol/DeclareFX/issues/15).
 
 ## Historical counterexample to the superseded preservation requirement
@@ -98,5 +99,5 @@ underflow/overflow/division/exact-comparison cases, with exact host/build/OS/CPU
 and output recorded. Ordinary gain 0/1/2 renders within `1e-6` do not measure
 underflow behavior: tiny values can change branches with visible geometry
 consequences. No actual EEL2/REAPER execution or audio/UI validation is claimed.
-Track the [actual compiler CI/review checkpoint and pending fix revalidation](proof-evidence.md)
+Track the [actual compiler CI/review history and successful fix revalidation](proof-evidence.md)
 separately; do not close real-host gates on the strength of compiler tests.

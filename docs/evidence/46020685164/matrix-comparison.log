@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "revision": "ba5f8ea585e26b4cd822fae18a18c12e65ae391a",
+  "platforms": [
+    "linux",
+    "darwin",
+    "win32"
+  ],
+  "goldenSha256": "89a537274f8932bd0eeda87838639054aeee254f721c9dc007fd72088b5a804d"
+}

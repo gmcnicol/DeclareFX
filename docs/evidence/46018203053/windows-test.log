@@ -1,0 +1,76 @@
+$ pnpm build && node --test "dist/test/**/*.test.js"
+$ pnpm clean && tsc
+$ node --input-type=module -e "import { rmSync } from 'node:fs'; rmSync('dist', { recursive: true, force: true });"
+✔ CLI validation and I/O failures preserve previous output and report source/binding/DSP context (15258.4149ms)
+✔ CLI refuses direct, hard-linked and resolved-parent input/output aliases and unmarked destinations (6772.2625ms)
+✖ successful replacement is atomically visible to concurrent readers and leaves author files and no staging files behind (3328.8284ms)
+✔ CLI emits decimal defaults and guarded native-underflow expressions without exponent numeric tokens (1432.6365ms)
+✔ explicit CLI builds standalone output relative to invocation cwd and exposes only help/version/build (9310.253ms)
+✔ compiler rejects unsupported composition and every authored body without loading or executing them (16.6075ms)
+✔ compiler validates the strict v1 binding and resolves named nested control identities (622.6426ms)
+✔ compiler enforces literal state, initial size, text and reserved-resource contracts (196.3443ms)
+✔ compiler lowers every allowed scalar operator and binds immutable, native and geometry reads (2090.9172ms)
+✔ compiler rejects invalid ASTs, types, references and dependency cycles with original locations (2601.2275ms)
+✔ compiler rejects statically invalid arithmetic and preserves lazy finite-evaluation policy in the target (1464.1266ms)
+✔ compiler rejects ordinary fractional constant failures without evaluating untaken branches (1972.0908ms)
+✔ compiler defers underflow-sensitive values, branches and lazy operands to guarded native evaluation (1470.0387ms)
+✔ compiler does not prove a zero quotient or branch from Node underflow of ordinary operands (387.7424ms)
+✔ compiler keeps upstream warnings, rejects erased syntax and reports trailing directive provenance (661.4047ms)
+✔ compiler requires own binding fields rather than prototype-supplied identities (0.6157ms)
+✔ compiler cannot accept parser-only success when the checked frontend rejects an unused duplicate member (1.0904ms)
+✔ compiler preserves arithmetic precedence, short circuit and exact comparison operators in target expressions (209.0799ms)
+✔ compiler applies nonnegative size safety to live viewport inputs as well as child sizes (133.5968ms)
+✔ compiler rejects malformed JSON binding segments before attempting name resolution or coercion (0.4509ms)
+✔ compiler lowers the complete literal-label example to static target slots without upstream objects (252.9381ms)
+✔ effect compiler refuses unsupported or duplicate DSP sections and non-section preambles with DSP provenance (1882.1955ms)
+✔ DSP rejects detectable reserved resources, alias writes/definitions and initialization-time parameter access without treating trusted EEL2 as a sandbox (2189.0132ms)
+✔ DSP scientific numeric tokens are rejected with locations while comments, quoted text and identifiers are preserved (726.6901ms)
+✔ DSP permits init-defined helpers that read the block alias later, but diagnoses direct init reads and detectable mutating APIs (1213.9919ms)
+✔ emits static viewport-driven dirty geometry, nested translations, bitmap literal text and root-clipped rectangles in source order (69.3859ms)
+✔ emits relative latest-native dragging with no stationary edits and documented release/focus/idle touch completion (103.7356ms)
+✔ literal labels use EEL2 escapes rather than JSON Unicode/form-feed escapes and cannot inject source (72.3064ms)
+✔ runtime guards preserve lazy expression branches, exact comparisons, per-intermediate finiteness and separate retained geometry validity (128.444ms)
+✔ independent arithmetic model records safe gain, block-rate stereo and latest-native relative-drag expectations, not EEL2 execution (0.5653ms)
+✔ nested named bound control translates through its parent and uses its own current width with root-only clipping (101.5296ms)
+✔ arithmetic overflow is checked before EEL2 assignment filtering can turn an invalid result into valid-looking zero (92.2662ms)
+✔ tiny literals and normal-literal tiny intermediates retain lazy branches, exact comparisons and zero-denominator guards structurally, not as host execution (126.6596ms)
+✔ all generated executable numbers use deterministic plain decimals, including defaults, slots, viewport and finite guards (199.2246ms)
+✔ binding JSON rejects duplicate/conflicting member declarations, including escaped spellings (0.4151ms)
+✔ effect compiler emits native persistent gain and a bounded safe block snapshot before preserved author DSP (99.7778ms)
+✔ evidence command preserves actual tools, input hashes, clean relocated builds and complete golden bytes (25057.5284ms)
+✔ matrix comparison requires three successful same-revision platform reports and identical complete output (4523.4656ms)
+✔ complete gain example matches reviewed UTF-8/LF golden bytes, deterministic provenance and standalone audio structure (1297.258ms)
+✔ real CLI copies in distinct checkout directories emit identical complete golden bytes without runtime imports (5467.3938ms)
+✔ pinned checked-tree frontend accepts the literal-label example without library inputs (610.4625ms)
+✔ pinned frontend rejects a wrong numeric default with its original source position (1.9944ms)
+✔ vendored compiler is the exact artifact approved for subset v1 (12.3643ms)
+✔ compiler provenance and redistributed notices travel with the artifact (6.1541ms)
+ℹ tests 44
+ℹ suites 0
+ℹ pass 43
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 37685.8241
+
+✖ failing tests:
+
+test at dist\test\cli.test.js:66:1
+✖ successful replacement is atomically visible to concurrent readers and leaves author files and no staging files behind (3328.8284ms)
+  AssertionError [ERR_ASSERTION]: [io/DFX_IO] EPERM: operation not permitted, rename 'C:\Users\RUNNER~1\AppData\Local\Temp\declarefx-cli-H3f8vl\.gain.jsfx.b67c2b9f-b5b8-4e8e-bc24-232a8c2031ab.tmp' -> 'C:\Users\RUNNER~1\AppData\Local\Temp\declarefx-cli-H3f8vl\gain.jsfx'
+  
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (file:///D:/a/DeclareFX/DeclareFX/dist/test/cli.test.js:80:12)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+[ELIFECYCLE] Test failed. See above for more details.

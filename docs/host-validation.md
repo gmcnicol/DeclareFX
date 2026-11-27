@@ -7,9 +7,10 @@ this is a bounded local observation, not a search of remote machines. Do not
 install/provision REAPER automatically. The concrete
 [host-validation handoff #15](https://github.com/gmcnicol/DeclareFX/issues/15)
 already exists outside the parent map, with native dependency on ticket 14.
-[Initial compiler CI passed](proof-evidence.md) at `8b89ec6`; the final-review
-compiler fix still requires a new exact-SHA matrix run. That automated gate is
-not excused by the manual-host exception.
+[Compiler CI history](proof-evidence.md) preserves initial success at `8b89ec6`,
+the failed Windows publication run at `e680212`, and successful fix revalidation
+at `ba5f8ea` (run 46020685164, all three OS jobs plus comparison). These automated
+results do not satisfy any manual-host gate.
 
 Canonical requirements: [CLI/validation](https://github.com/gmcnicol/DeclareFX/issues/2#issuecomment-7193405886),
 [ownership](https://github.com/gmcnicol/DeclareFX/issues/3#issuecomment-7162839879),

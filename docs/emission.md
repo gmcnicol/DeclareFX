@@ -164,8 +164,10 @@ recovery/directory-fsync guarantee. The initial three-OS compiler/publication
 matrix passed at `8b89ec6`; the post-review run at `e680212` failed Windows
 concurrent-reader replacement with `EPERM` ([actual evidence](proof-evidence.md)).
 Public CLI filesystem fault-injection regressions verify bounded retries, not a
-native Windows reproduction. This publication fix still requires a new actual
-three-OS exact-SHA matrix run; no matrix proves every filesystem.
+native Windows reproduction. The publication fix was revalidated at `ba5f8ea`
+in [actual run 46020685164](proof-evidence.md#successful-publication-fix-checkpoint):
+all three OS jobs passed 47/47 tests, including the unchanged real-reader test,
+and the dependent byte comparison passed. No matrix proves every filesystem.
 
 ## References and evidence boundary
 
