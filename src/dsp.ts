@@ -32,6 +32,11 @@ export function readDsp(source: string, filename: string): { sections: Record<st
     diagnostics[diagnostics.length - 1].category = 'resource';
     diagnostics[diagnostics.length - 1].code = 'DFX_DSP_RESOURCE';
   };
+  for (const match of code.matchAll(/(?<![\w.])(?:\d+(?:\.\d*)?|\.\d+)[eE][+-]?\d+\b/g)) {
+    error(match.index, 'Scientific numeric notation is unsupported in EEL2 DSP; use plain decimal literals.');
+    diagnostics[diagnostics.length - 1].category = 'numeric';
+    diagnostics[diagnostics.length - 1].code = 'DFX_DSP_NUMBER';
+  }
   const protectedValue = /\b(?:dfx_param_gain|slider\d+)\b/i;
   for (const match of code.matchAll(/[a-z_][\w.]*/gi)) {
     if (match[0].split('.').some(part => /^__dfx_/i.test(part)) || /^(?:gfx_|mouse_|slider_automate$|sliderchange$|slider_show$)/i.test(match[0])) {

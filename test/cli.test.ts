@@ -29,6 +29,7 @@ test('CLI validation and I/O failures preserve previous output and report source
     ['gain.bindings.json', bindings.replace('"min":0', '"min":0,"other":true'), /bindings.other: error \[binding\//],
     ['gain.dsp.eel', '@gfx\n0;', /gain\.dsp\.eel:1:1: error \[unsupported\/DFX_DSP_SECTION\]/],
     ['gain.dsp.eel', '@sample\n__dfx_bad=1;', /gain\.dsp\.eel:2:1: error \[resource\/DFX_DSP_RESOURCE\]/],
+    ['gain.dsp.eel', '@sample\nspl0 *= 1e-3;', /gain\.dsp\.eel:2:9: error \[numeric\/DFX_DSP_NUMBER\]/],
     ['ui.declare', Buffer.from([0xff]), /DFX_UTF8.*ui\.declare/],
   ];
   for (const [file, contents, expected] of failures) {
@@ -91,6 +92,18 @@ test('successful replacement is atomically visible to concurrent readers and lea
   const failure = run(cwd, [...args.slice(0, -1), 'missing-parent/output.jsfx']);
   assert.notEqual(failure.status, 0);
   assert.deepEqual(await readFile(join(cwd, 'gain.jsfx'), 'utf8'), next);
+});
+
+test('CLI emits decimal defaults and guarded native-underflow expressions without exponent numeric tokens', async t => {
+  const cwd = await fixture(t);
+  await writeFile(join(cwd, 'ui.declare'), source.replace('gain: number = 1', 'gain: number = 0.0000001')
+    .replace('parent.width / 2', '1e-310 > 0 ? 1 / (1e-200 * 1e-200) : 2'));
+  const result = run(cwd);
+  assert.equal(result.status, 0, result.stderr);
+  const output = await readFile(join(cwd, 'gain.jsfx'), 'utf8');
+  assert.match(output, /slider1:0\.0000001<0,2,0>/);
+  assert.match(output, /&& \(__dfx_ui_t\d+ !== 0\)/);
+  assert.doesNotMatch(output.replace(/\/\/[^\n]*/g, ''), /(?<![\w.])(?:\d+(?:\.\d*)?|\.\d+)[eE][+-]?\d+\b/);
 });
 
 test('explicit CLI builds standalone output relative to invocation cwd and exposes only help/version/build', async t => {

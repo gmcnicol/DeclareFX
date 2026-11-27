@@ -39,6 +39,21 @@ test('DSP rejects detectable reserved resources, alias writes/definitions and in
   assert.equal(allowed.ok, true, JSON.stringify(allowed.diagnostics));
 });
 
+test('DSP scientific numeric tokens are rejected with locations while comments, quoted text and identifiers are preserved', async () => {
+  for (const token of ['1e3', '2E+9', '-2.5e-5', '.25E2', '1.e3']) {
+    const result = await buildEffect({ ...input, dsp: `@sample\nordinary = ${token};`, dspFilename: 'author.eel' });
+    assert.equal(result.ok, false, token);
+    assert.equal('jsfx' in result, false);
+    const diagnostic = result.diagnostics.find(d => d.code === 'DFX_DSP_NUMBER');
+    assert.equal(diagnostic?.category, 'numeric');
+    assert.deepEqual(diagnostic?.location, { file: 'author.eel', line: 2, column: token.startsWith('-') ? 13 : 12 });
+  }
+  const author = '@sample\n// 1e-310\n/* 2E+9 */\n#label="3e8 \\" 4E2";\nletter=\'e\';\ne10 = 1; stage1e3 = 2; foo.bar1E3 = $x1e3;\nspl0 *= dfx_param_gain;\n';
+  const allowed = await buildEffect({ ...input, dsp: author });
+  assert.equal(allowed.ok, true, JSON.stringify(allowed.diagnostics));
+  if (allowed.ok) assert.ok(allowed.jsfx.includes(author));
+});
+
 test('DSP permits init-defined helpers that read the block alias later, but diagnoses direct init reads and detectable mutating APIs', async () => {
   const author = '@init\nfunction apply(x) (x * dfx_param_gain);\nordinary = 1;\n@block\nordinary = apply(2);\n@sample\nspl0 = apply(spl0);\n';
   const good = await buildEffect({ ...input, dsp: author });
@@ -158,11 +173,51 @@ test('arithmetic overflow is checked before EEL2 assignment filtering can turn a
   assert.equal(result.ok, true, JSON.stringify(result.diagnostics));
   if (!result.ok) return;
   const gfx = result.jsfx.split('@gfx')[1];
-  assert.match(gfx, /_ok = .*abs\(\(__dfx_ui_t\d+ \* __dfx_ui_t\d+\)\) <= 1\.7976931348623157e\+?308/);
-  assert.match(gfx, /_ok = .*abs\(\(__dfx_ui_t\d+ \/ __dfx_ui_t\d+\)\) <= 1\.7976931348623157e\+?308/);
-  assert.match(gfx, /abs\(__dfx_ui_x0 \+ __dfx_ui_s13\) <= 1\.7976931348623157e\+?308/);
-  assert.match(gfx, /abs\(2 \* __dfx_ui_delta\) <= 1\.7976931348623157e\+?308/);
+  assert.match(gfx, /_ok = .*abs\(\(__dfx_ui_t\d+ \* __dfx_ui_t\d+\)\) <= 179769313486231570{292}/);
+  assert.match(gfx, /_ok = .*abs\(\(__dfx_ui_t\d+ \/ __dfx_ui_t\d+\)\) <= 179769313486231570{292}/);
+  assert.match(gfx, /abs\(__dfx_ui_x0 \+ __dfx_ui_s13\) <= 179769313486231570{292}/);
+  assert.match(gfx, /abs\(2 \* __dfx_ui_delta\) <= 179769313486231570{292}/);
   assert.ok(gfx.indexOf('abs(2 * __dfx_ui_delta)') < gfx.indexOf('__dfx_ui_edit = __dfx_ui_native'));
+});
+
+test('tiny literals and normal-literal tiny intermediates retain lazy branches, exact comparisons and zero-denominator guards structurally, not as host execution', async () => {
+  const fixture = `App [ width = 400, height = 160, gain: number = 1,
+    gainControl: View [ x = { parent.width * 1e-310 === 0 ? 1 : 2 },
+      y = { 1e-150 * 1e-160 === 0 ? 1 : 2 },
+      width = { 1e-310 > 0 ? 1 / 0 : 2 }, height = { 1 / (1e-200 * 1e-200) } ] ]`;
+  const result = await buildEffect({ ...input, source: fixture });
+  assert.equal(result.ok, true, JSON.stringify(result.diagnostics));
+  if (!result.ok) return;
+  const gfx = result.jsfx.split('@gfx')[1];
+  assert.ok(gfx.includes(' = 0.' + '0'.repeat(309) + '1;'));
+  assert.match(gfx, /__dfx_ui_t\d+ = \(__dfx_ui_t\d+ === __dfx_ui_t\d+\);/);
+  assert.match(gfx, /__dfx_ui_t\d+ \? \(\n[\s\S]*\) : \(/);
+  assert.match(gfx, /_ok = __dfx_ui_t\d+_ok && \(__dfx_ui_t\d+ !== 0\) && \(abs\(\(__dfx_ui_t\d+ \/ __dfx_ui_t\d+\)\) <= 179769313486231570{292}\)/);
+  assert.match(gfx, /_ok \? \(__dfx_ui_t\d+ = \(__dfx_ui_t\d+ \/ __dfx_ui_t\d+\);\);/);
+  assert.match(gfx, /__dfx_ui_ok \? \(__dfx_ui_s\d+ = __dfx_ui_next;\) : \(__dfx_ui_numeric_error = 1;/);
+  assert.doesNotMatch(gfx, /(?<![\w.])(?:\d+(?:\.\d*)?|\.\d+)[eE][+-]?\d+\b/);
+});
+
+test('all generated executable numbers use deterministic plain decimals, including defaults, slots, viewport and finite guards', async () => {
+  const fixture = `App [ width = 1000000000000000000000, height = 0.0000001, gain: number = 0.0000001,
+    huge: number = 1250000000000000000000, tiny: number = -0.${'0'.repeat(323)}5,
+    gainControl: View [ x = -1250000000000000000000, y = { -1.25e-7 }, width = { app.huge + 1e-7 }, height = 2 ] ]`;
+  const result = await buildEffect({ ...input, source: fixture });
+  assert.equal(result.ok, true, JSON.stringify(result.diagnostics));
+  if (!result.ok) return;
+  assert.match(result.jsfx, /slider1:0\.0000001<0,2,0>Gain/);
+  assert.match(result.jsfx, /@gfx 1000000000000000000000 0\.0000001\n/);
+  assert.match(result.jsfx, /__dfx_ui_s\d+ = 1250000000000000000000;/);
+  assert.ok(result.jsfx.includes(' = -0.' + '0'.repeat(323) + '5;'));
+  assert.match(result.jsfx, /__dfx_ui_t\d+ = -1250000000000000000000;/);
+  assert.match(result.jsfx, /__dfx_ui_t\d+ = 0\.000000125;/);
+  const maximum = '17976931348623157' + '0'.repeat(292);
+  assert.ok(result.jsfx.includes(`abs(v) <= ${maximum}`));
+  assert.ok(result.jsfx.includes(`) <= ${maximum}`));
+  const executable = result.jsfx.replace(/\/\/[^\n]*|"(?:\\.|[^"\\])*"/g, ' ');
+  assert.doesNotMatch(executable, /(?<![\w.])(?:\d+(?:\.\d*)?|\.\d+)[eE][+-]?\d+\b/);
+  const repeated = await buildEffect({ ...input, source: fixture });
+  assert.equal(repeated.ok && repeated.jsfx, result.jsfx);
 });
 
 test('binding JSON rejects duplicate/conflicting member declarations, including escaped spellings', async () => {

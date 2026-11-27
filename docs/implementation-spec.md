@@ -2,9 +2,10 @@
 
 Status: pinned inputs/build, checked subset-v1 lowering, standalone JSFX
 emission and explicit CLI implemented with local automated coverage. Three-OS
-and real-host evidence remain pending. **Ticket 13 is blocked on the unresolved
-[finite-subnormal mechanism](numeric-blocker.md); full numeric conformance is not
-established.** This is the ordered implementation handoff for the
+and real-host evidence and final Standards/Spec review remain pending. The
+[explicit numeric amendment](https://github.com/gmcnicol/DeclareFX/issues/6#issuecomment-7219873850)
+resolves the [numeric policy blocker](numeric-blocker.md), not those evidence
+gates. This is the ordered implementation handoff for the
 [architecture and proof map](https://github.com/gmcnicol/DeclareFX/issues/1), not
 a claim of JSFX or REAPER success.
 
@@ -19,6 +20,15 @@ Decision detail remains in its resolution, not duplicated here:
 - [Subset v1](https://github.com/gmcnicol/DeclareFX/issues/6#issuecomment-7187429622):
   classless App/View/Text, literal labels, statically bound finite scalars,
   deterministic acyclic UI evaluation, geometry and relative drag semantics.
+- [Approved numeric amendment](https://github.com/gmcnicol/DeclareFX/issues/6#issuecomment-7219873850):
+  native EEL2 UI underflow, including tiny normals/intermediates; exact comparisons
+  on represented values, no universal cutoff or Node/cross-host tiny-value parity.
+  Preserve lazy finite/overflow/division guards, retained geometry and safe gain.
+  Defer uncertain compile-time proofs; no software floats, blanket tiny rejection
+  or global rounding/flushing. Emit every generated executable number as plain
+  decimal, including defaults and maximum-finite guards. Diagnose scientific
+  numeric tokens in executable author DSP with locations, never rewrite them or
+  mistake comments/quoted text/identifiers for numeric tokens.
 - [Parameter ownership and DSP composition](https://github.com/gmcnicol/DeclareFX/issues/3#issuecomment-7162839879):
   native slot 1 is authoritative; block snapshot/read-only `dfx_param_gain`,
   separate graphics/audio/author scratch, case-insensitive reserved `__dfx_`
@@ -166,10 +176,11 @@ acceptance obligation, not proven merely by emitting plausible calls.
 | Upstream frontend example/type rejection | **Pass locally**: checked tree and original error location; not DeclareFX subset validation |
 | Upstream clean rebuild / source-to-bundle parity | **Unrun; not required** by selected artifact route |
 | Target validation/lowering | **Implemented locally**: public compiler tests cover the literal example, operators, checked frontend, rejection, bindings, cycles, finite arithmetic, resources and original diagnostics; structural/static analysis only |
-| JSFX emitter, CLI, full golden, safe publication | **Implemented and structurally tested locally; ticket blocked**: [effect compiler/CLI](emission.md), [full golden](../examples/gain.jsfx), public compiler/real-subprocess/atomic-reader tests. [Finite-subnormal preservation](numeric-blocker.md) unresolved; no EEL2 execution or full numeric conformance claim |
+| JSFX emitter, CLI, full golden, safe publication | **Implemented and structurally tested locally; numeric policy blocker resolved by explicit amendment**: [effect compiler/CLI](emission.md), [full golden](../examples/gain.jsfx), public compiler/real-subprocess/atomic-reader tests. [Historical numeric evidence](numeric-blocker.md); no EEL2 execution or host parity claim |
 | Linux/macOS/Windows end-to-end CI and golden identity | **Unrun**; owned by the evidence ticket; local Linux results are not three-platform validation |
 | REAPER standalone load, stereo renders and automation/UI/reload | **Unrun**; target REAPER 7.02+ is a floor, not a validated range |
 | Performance | **Unmeasured**; no CPU, audio, UI or latency claims |
+| Final Standards/Spec review | **Pending**; local automated checks do not replace the two-axis review |
 
 Host handoff must record exact REAPER/OS/architecture, source/output hashes,
 sample rate, actual processing block size and display scale. The canonical CLI

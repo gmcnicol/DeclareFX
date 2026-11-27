@@ -2,6 +2,7 @@ import { createHash } from 'node:crypto';
 import { compile } from './compiler.js';
 import { readDsp } from './dsp.js';
 import { graphics } from './graphics.js';
+import { decimal } from './numeric.js';
 import type { Diagnostic } from './target.js';
 
 export const compilerVersion = '0.1.0';
@@ -33,6 +34,6 @@ export async function buildEffect(input: EffectInput): Promise<EffectResult> {
   if (diagnostics.length) return { ok: false, diagnostics: [...result.diagnostics, ...diagnostics] };
   const identity = createHash('sha256').update(JSON.stringify([input.source, input.bindingsSource, input.dsp])).digest('hex');
   const ui = graphics(result.program);
-  const jsfx = `${outputMarker}// compiler: declarefx ${compilerVersion}; subset: 1\n// upstream: cc62d9dfa0b39f84e20480ff28bed8107d986331\n// inputs-sha256: ${identity}\ndesc:DeclareFX Gain v1\noptions:gfx_idle\nslider1:${result.program.binding.default}<0,2,0>Gain\n\n@init\nfunction __dfx_finite(v) (v === v && abs(v) <= 1.7976931348623157e308);\n${ui.init}${sections.init ?? ''}\n@block\n__dfx_audio_gain = slider1;\ndfx_param_gain = __dfx_finite(__dfx_audio_gain) ? min(2, max(0, __dfx_audio_gain)) : 1;\n${sections.block ?? ''}\n@sample\n${sections.sample ?? ''}\n${ui.gfx}`;
+  const jsfx = `${outputMarker}// compiler: declarefx ${compilerVersion}; subset: 1\n// upstream: cc62d9dfa0b39f84e20480ff28bed8107d986331\n// inputs-sha256: ${identity}\ndesc:DeclareFX Gain v1\noptions:gfx_idle\nslider1:${decimal(result.program.binding.default)}<0,2,0>Gain\n\n@init\nfunction __dfx_finite(v) (v === v && abs(v) <= ${decimal(Number.MAX_VALUE)});\n${ui.init}${sections.init ?? ''}\n@block\n__dfx_audio_gain = slider1;\ndfx_param_gain = __dfx_finite(__dfx_audio_gain) ? min(2, max(0, __dfx_audio_gain)) : 1;\n${sections.block ?? ''}\n@sample\n${sections.sample ?? ''}\n${ui.gfx}`;
   return { ok: true, jsfx, diagnostics: result.diagnostics };
 }

@@ -77,9 +77,15 @@ decoded literal, including actual NUL/unpaired surrogate rejection.
   actual edit. This is a static schedule, not a settle loop or runtime solver.
 - Expression nodes preserve TypeScript precedence, strict operand types, lazy
   `&&`/`||` and `?:`, and exact `===`/`!==` comparisons. Numeric operations require
-  finite double values **at every evaluated intermediate**, not just the final
-  result. Guard division by zero/overflow and evaluate only taken branches.
-  EEL2 approximate equality must not replace exact comparisons/change detection.
+  finite values **at every evaluated intermediate**, not just the final result.
+  Under the [numeric amendment](https://github.com/gmcnicol/DeclareFX/issues/6#issuecomment-7219873850),
+  UI arithmetic uses native EEL2 floating-point behavior: tiny literals, stored
+  values and intermediates (including tiny normals) may flush to zero. No
+  universal cutoff, gradual underflow or JavaScript/cross-host parity is promised.
+  Guard division by zero/overflow, including denominators represented as zero
+  after underflow, and evaluate only taken branches. Exact comparisons/change
+  detection operate on represented EEL2 values; never substitute approximate
+  equality. Tiny-value branches are unsuitable for portable layout decisions.
 - `invalid: 'retain'` requires last-valid geometry, initially `initial: 0`.
   `nonNegative` distinguishes sizes from positions. Keep evaluation validity
   separately from the retained number, with a bounded diagnostic flag: a failed
@@ -94,8 +100,15 @@ decoded literal, including actual NUL/unpaired surrogate rejection.
 The representation uses scalar slots/static strings only; no indexed-memory
 allocator or general runtime is introduced. Static constant propagation rejects
 provable invalid arithmetic and negative sizes, respecting known short-circuit
-branches. Runtime-dependent validity is an emitter obligation, not something
-this TypeScript analysis proves about EEL2.
+branches. Numeric proofs conservatively retain only integer values; fractional
+literals/results and branches or lazy operands depending on unknown values are
+deferred to guarded runtime evaluation. This is an analysis limit, not a host
+underflow cutoff or source restriction. Clear guaranteed failures such as literal
+division by zero and integer-operand overflow remain rejected. Runtime-dependent
+validity is an emitter obligation, not something this TypeScript analysis proves
+about EEL2. No software floats, global rounding/flushing or blanket tiny-literal
+rejection is introduced. Generated numeric literals use a shared plain-decimal
+formatter, including slot initializers and source constants (see [emission](emission.md)).
 
 ## Validation limits
 
