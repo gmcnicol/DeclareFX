@@ -1,9 +1,10 @@
 # Compiler proof evidence and handoff
 
 **Initial Linux/macOS/Windows compiler CI: all passed at
-`8b89ec6439eb1c2d01377a39056265e1e2079008`. Final-review compiler fix: new
-exact-SHA matrix revalidation pending. Real-host validation: all UNRUN.**
-Do not treat the initial checkpoint as CI coverage of the later fix. No
+`8b89ec6439eb1c2d01377a39056265e1e2079008`. Post-review run at `e680212`
+FAILED Windows publication and dependent comparison. Bounded publication retry
+fix: new actual exact-SHA matrix pending. Real-host validation: all UNRUN.**
+Do not treat the initial checkpoint as CI coverage of either later fix. No
 source/header/golden/model check executes EEL2 or proves REAPER behavior.
 
 ## Actual initial automated checkpoint
@@ -81,6 +82,42 @@ duplicates. Full raw copies currently reside under
 archival. Coordinator must archive full downloads before expiry if raw replay is
 required. No new service was provisioned. Hashes cannot reconstruct omitted logs.
 
+## Failed post-review checkpoint and publication follow-up
+
+[Run 46018203053, attempt 1](https://github.com/gmcnicol/DeclareFX/actions/runs/46018203053),
+push at exact **`e68021234745ca835ff4d9d130b9ba2539e4f637`**, completed
+**FAILURE** on 2026-11-27. This run includes the Spec fix in `e287167`;
+its newly exposed publication failure is independent of that numeric finding.
+
+| Actual job | Result |
+| --- | --- |
+| [Linux, 140570695569](https://github.com/gmcnicol/DeclareFX/actions/runs/46018203053/job/140570695569) | SUCCESS; 44/44 tests, 2/2 vendor, six reproducibility command exits 0 |
+| [macOS, 140570695041](https://github.com/gmcnicol/DeclareFX/actions/runs/46018203053/job/140570695041) | SUCCESS; 44/44 tests, 2/2 vendor, six reproducibility command exits 0 |
+| [Windows, 140570695516](https://github.com/gmcnicol/DeclareFX/actions/runs/46018203053/job/140570695516) | **FAILURE; 43/44 tests**; standalone vendor/reproducibility/tracked-change gates SKIPPED, not passed |
+| [Comparison, 140571719855](https://github.com/gmcnicol/DeclareFX/actions/runs/46018203053/job/140571719855) | **FAILURE**; Windows `reproducibility/result.json` missing, correctly not counted as success |
+
+The existing public CLI concurrent-reader test failed with `io/DFX_IO EPERM`
+on rename of `.gain.jsfx.<uuid>.tmp` to `gain.jsfx`. The one-shot publication path
+had no recovery for transient native rename denials. Windows access/sharing errors
+can be transient or permanent; the log alone does not identify the particular
+reader/scanner/handle responsible. The initial successful run remains valid
+historical evidence, not a reason to hide this failed run or rerun until green.
+
+The follow-up retains atomic rename and the real-reader test, adding only
+[bounded, narrowly classified retries](emission.md#determinism-and-publication).
+Public CLI subprocess filesystem-boundary fault injection checks transient
+recovery, persistent denial, unrelated I/O failure and destination revalidation.
+These Linux-runnable regressions do **not** reproduce native Windows sharing.
+A fresh merger must run the actual new three-platform matrix; missing/failed
+Windows evidence is never success. [Ticket 13 was reopened](https://github.com/gmcnicol/DeclareFX/issues/13#issuecomment-7221187181);
+ticket 14 and parent completion remain open.
+
+Original failed-run APIs, runner/gate logs and four hash-verified artifact ZIPs
+remain under `/tmp/declarefx-implementation/final-review-merge-evidence/46018203053/`.
+Artifacts expire **2027-02-25T14:41:38Z**; this local collection is not durable
+archival. Run/job links and this failure summary survive, but cannot reconstruct
+omitted raw bytes. Preserve full downloads before expiry if raw audit is needed.
+
 ## Review fix and precise remaining automated gate
 
 Independent Standards and Spec reviewers inspected all authorship changes since
@@ -92,9 +129,10 @@ The shared proof now rejects ordinary negative sizes, zero divisors and overflow
 with public red/green regressions, while uncertain tiny proofs stay deferred.
 See [analysis limits](compiler.md); no host cutoff/parity claim is introduced.
 
-**The final fixed revision has not yet run on hosted CI.** The fresh merger must:
+**The post-review revision failed hosted CI; the publication follow-up still
+needs its own actual run.** The fresh merger must:
 
-1. Merge the committed fix branch into current integration, run local gates,
+1. Merge the committed publication-fix branch into current integration, run local gates,
    push only `implement/declarefx-proof` and observe its actual new matrix.
 2. Require all three proof jobs and the dependent comparison to succeed at that
    exact merge SHA. Record actual run/attempt/job URLs, tools/OS/images,
@@ -102,15 +140,15 @@ See [analysis limits](compiler.md); no host cutoff/parity claim is introduced.
    independently verified downloaded hashes. Failures remain explicit.
 3. Preserve compact actual results and full-download handoff, and have the
    coordinator link the final exact tested SHA/run in tracker/result evidence.
-   This document deliberately names only the already-tested checkpoint; it does
-   not invent a future SHA or circular evidence for its own documentation commit.
+   This document names the actual initial success and post-review failure, not
+   a future passing SHA or circular evidence for its own documentation commit.
 
 The concrete [host handoff issue 15](https://github.com/gmcnicol/DeclareFX/issues/15)
 exists outside the parent map with native dependency on ticket 14. All exact
 REAPER/EEL2/audio/numerical/UI/automation/interruption/HiDPI/reload/runtime and
 performance gates remain **UNRUN** under the parent exception. The separate
 [complete host protocol](host-validation.md) is not replaced by compiler CI.
-Only coordinator resolves tracker work; this fix does not close ticket 12/14/15.
+Only coordinator resolves tracker work; this fix does not close any ticket.
 
 ## Reproducibility and artifact protocol
 

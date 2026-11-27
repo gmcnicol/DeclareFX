@@ -11,6 +11,27 @@ const bindings = '{"version":1,"rootState":"gain","controlPath":["gainControl"],
 const dsp = '@sample\nspl0 *= dfx_param_gain;\nspl1 *= dfx_param_gain;\n';
 const args = ['build', 'ui.declare', '--bindings', 'gain.bindings.json', '--dsp', 'gain.dsp.eel', '--out', 'gain.jsfx'];
 const run = (cwd: string, argv = args) => spawnSync(process.execPath, [cli, ...argv], { cwd, encoding: 'utf8' });
+// Only the subprocess filesystem boundary is faulted; compilation and publication stay real.
+async function runWithRenameFailures(cwd: string, failures: string[] | string, changedOutput?: string) {
+  const preload = join(cwd, 'rename-fault.cjs');
+  await writeFile(preload, `
+const fs = require('node:fs/promises');
+const { syncBuiltinESMExports } = require('node:module');
+const rename = fs.rename;
+const failures = ${JSON.stringify(failures)};
+let changedOutput = ${JSON.stringify(changedOutput)};
+fs.rename = async (...paths) => {
+  const code = typeof failures === 'string' ? failures : failures.shift();
+  if (code) {
+    if (changedOutput !== undefined) { await fs.writeFile(paths[1], changedOutput); changedOutput = undefined; }
+    throw Object.assign(new Error(code + ': injected publication rename failure'), { code });
+  }
+  return rename(...paths);
+};
+syncBuiltinESMExports();
+`);
+  return spawnSync(process.execPath, ['--require', preload, cli, ...args], { cwd, encoding: 'utf8', timeout: 15_000 });
+}
 async function fixture(t: { after(fn: () => Promise<void>): void }): Promise<string> {
   const cwd = await mkdtemp(join(tmpdir(), 'declarefx-cli-'));
   t.after(() => rm(cwd, { recursive: true, force: true }));
@@ -92,6 +113,66 @@ test('successful replacement is atomically visible to concurrent readers and lea
   const failure = run(cwd, [...args.slice(0, -1), 'missing-parent/output.jsfx']);
   assert.notEqual(failure.status, 0);
   assert.deepEqual(await readFile(join(cwd, 'gain.jsfx'), 'utf8'), next);
+});
+
+test('CLI publishes complete replacement after transient filesystem rename denials', async t => {
+  const cwd = await fixture(t);
+  assert.equal(run(cwd).status, 0);
+  const previous = await readFile(join(cwd, 'gain.jsfx'));
+  const nextSource = source.replace('width = 400', 'width = 480');
+  await writeFile(join(cwd, 'ui.declare'), nextSource);
+  assert.equal(run(cwd, [...args.slice(0, -1), 'expected.jsfx']).status, 0);
+  const expected = await readFile(join(cwd, 'expected.jsfx'));
+  assert.notDeepEqual(expected, previous);
+
+  const result = await runWithRenameFailures(cwd, ['EPERM', 'EBUSY', 'EACCES', 'EPERM', 'EBUSY']);
+  assert.equal(result.error, undefined);
+  assert.equal(result.status, 0, result.stderr);
+  assert.deepEqual(await readFile(join(cwd, 'gain.jsfx')), expected);
+  assert.equal(await readFile(join(cwd, 'ui.declare'), 'utf8'), nextSource);
+  assert.equal(await readFile(join(cwd, 'gain.bindings.json'), 'utf8'), bindings);
+  assert.equal(await readFile(join(cwd, 'gain.dsp.eel'), 'utf8'), dsp);
+  assert.deepEqual((await readdir(cwd)).filter(file => file.endsWith('.tmp')), []);
+});
+
+test('CLI bounds persistent rename denials and does not retry unrelated I/O failures', async t => {
+  const cwd = await fixture(t);
+  assert.equal(run(cwd).status, 0);
+  const previous = await readFile(join(cwd, 'gain.jsfx'));
+  const nextSource = source.replace('width = 400', 'width = 480');
+  await writeFile(join(cwd, 'ui.declare'), nextSource);
+  for (const code of ['EPERM', 'EBUSY', 'EACCES', 'EIO']) {
+    // EIO occurs once, then rename would work: it must fail rather than retry.
+    const result = await runWithRenameFailures(cwd, code === 'EIO' ? [code] : code);
+    assert.equal(result.error, undefined, 'CLI must exit itself, not be killed by the test timeout');
+    assert.equal(result.signal, null);
+    assert.equal(result.status, 1, result.stderr);
+    assert.match(result.stderr, new RegExp(`\\[io/DFX_IO\\].*${code}: injected publication rename failure`));
+    if (code !== 'EIO') assert.match(result.stderr, /Atomic replacement failed after 6 attempts/);
+    assert.deepEqual(await readFile(join(cwd, 'gain.jsfx')), previous);
+    assert.deepEqual((await readdir(cwd)).filter(file => file.endsWith('.tmp')), []);
+  }
+  assert.equal(await readFile(join(cwd, 'ui.declare'), 'utf8'), nextSource);
+  assert.equal(await readFile(join(cwd, 'gain.bindings.json'), 'utf8'), bindings);
+  assert.equal(await readFile(join(cwd, 'gain.dsp.eel'), 'utf8'), dsp);
+});
+
+test('CLI rechecks output ownership and content after a transient rename denial', async t => {
+  const cwd = await fixture(t);
+  assert.equal(run(cwd).status, 0);
+  const previous = await readFile(join(cwd, 'gain.jsfx'), 'utf8');
+  for (const [changed, diagnostic] of [
+    [previous + '// concurrent marked-output edit\n', /DFX_CHANGED/],
+    ['desc:Hand-written effect\n@sample\nspl0=0;\n', /DFX_UNMARKED/],
+  ] as const) {
+    await writeFile(join(cwd, 'gain.jsfx'), previous);
+    const result = await runWithRenameFailures(cwd, ['EPERM'], changed);
+    assert.equal(result.error, undefined);
+    assert.equal(result.status, 1, result.stderr);
+    assert.match(result.stderr, diagnostic);
+    assert.equal(await readFile(join(cwd, 'gain.jsfx'), 'utf8'), changed);
+    assert.deepEqual((await readdir(cwd)).filter(file => file.endsWith('.tmp')), []);
+  }
 });
 
 test('CLI emits decimal defaults and guarded native-underflow expressions without exponent numeric tokens', async t => {

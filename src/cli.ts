@@ -2,6 +2,7 @@
 import { randomUUID } from 'node:crypto';
 import { link, lstat, open, readFile, realpath, rename, rm, stat } from 'node:fs/promises';
 import { basename, dirname, join, resolve } from 'node:path';
+import { setTimeout as delay } from 'node:timers/promises';
 import { buildEffect, compilerVersion, outputMarker } from './effect.js';
 import type { Diagnostic } from './target.js';
 
@@ -54,11 +55,19 @@ async function main(argv: string[]): Promise<void> {
   try {
     try { await file.writeFile(result.jsfx, 'utf8'); await file.sync(); }
     finally { await file.close(); }
-    const current = await inspect();
-    if (previous === undefined ? current !== undefined : current === undefined || !previous.equals(current)) fail('DFX_CHANGED', 'Output changed during compilation; refusing replacement.');
-    // New destinations use no-clobber link; existing owned outputs use atomic rename.
-    if (previous === undefined) await link(temporary, out);
-    else await rename(temporary, out);
+    for (let attempt = 0; ; attempt++) {
+      const current = await inspect();
+      if (previous === undefined ? current !== undefined : current === undefined || !previous.equals(current)) fail('DFX_CHANGED', 'Output changed during compilation; refusing replacement.');
+      // New destinations use no-clobber link; existing owned outputs use atomic rename.
+      if (previous === undefined) { await link(temporary, out); break; }
+      try { await rename(temporary, out); break; }
+      catch (error) {
+        // Windows readers/scanners can transiently deny replacement; never unlink the destination.
+        if (!['EPERM', 'EACCES', 'EBUSY'].includes((error as NodeJS.ErrnoException).code ?? '')) throw error;
+        if (attempt === 5) throw new Error(`Atomic replacement failed after 6 attempts: ${String(error)}`);
+        await delay(20 * 2 ** attempt);
+      }
+    }
   } finally {
     await rm(temporary, { force: true }).catch(error => console.error(`warning [publication/DFX_CLEANUP] ${temporary}: ${String(error)}`));
   }

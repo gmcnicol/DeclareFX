@@ -138,11 +138,22 @@ the exact first-line compiler marker. Manual changes to marked outputs are
 **disposable**; there is no edit merge/detection system.
 
 Only a fully validated effect is staged in an exclusively created sibling file,
-written/flushed/closed, and published. Output ownership/content is rechecked
-before publication. Existing owned output uses same-filesystem atomic rename;
-a new output uses a no-clobber hardlink of the complete staging file. Staging
-files are removed; cleanup failure is a warning, not a false failed build after
-successful publication. Unsupported filesystem operations fail without an
+written/flushed/closed, and published. Output ownership/content and input aliases
+are rechecked before every publication attempt. Existing owned output uses
+same-filesystem atomic rename; a new output uses a no-clobber hardlink of the
+complete staging file.
+
+Only rename failures with `EPERM`, `EACCES` or `EBUSY` receive up to five retries,
+waiting 20, 40, 80, 160 and 320 ms (620 ms total requested delay, plus filesystem
+and scheduling time; not a hard wall-clock deadline). This narrow policy applies
+on all platforms and accommodates transient Windows sharing/access conflicts.
+The same complete staging file is retained; the destination is never unlinked or
+truncated. Six failed attempts exit nonzero with `io/DFX_IO`, the attempt count
+and final filesystem error. Other errors, validation failures and new-output
+hardlink failures are not retried. Permanent permission denial is still a failure.
+
+Staging files are removed; cleanup failure is a warning, not a false failed build
+after successful publication. Unsupported filesystem operations fail without an
 unsafe direct-write fallback. Failed validation/I/O before publication leaves
 previous output untouched.
 
@@ -150,8 +161,11 @@ This protects ordinary local regeneration, not hostile concurrent filesystem
 mutation. There is no portable compare-and-rename transaction against an
 adversary swapping directories/files after the final check, nor a power-loss
 recovery/directory-fsync guarantee. The initial three-OS compiler/publication
-matrix passed at `8b89ec6` ([actual evidence](proof-evidence.md)); the final-review
-fix still needs a new exact-SHA matrix run. Neither matrix proves every filesystem.
+matrix passed at `8b89ec6`; the post-review run at `e680212` failed Windows
+concurrent-reader replacement with `EPERM` ([actual evidence](proof-evidence.md)).
+Public CLI filesystem fault-injection regressions verify bounded retries, not a
+native Windows reproduction. This publication fix still requires a new actual
+three-OS exact-SHA matrix run; no matrix proves every filesystem.
 
 ## References and evidence boundary
 
@@ -166,6 +180,9 @@ Context7 quota was exhausted, so official sources were fetched directly:
 - [Official WDL EEL2 escape decoder](https://github.com/justinfrankel/WDL/blob/6a67ec5788ca6ee252b19cd8071796db49d763a7/WDL/eel2/nseel-eval.c)
 - [Resolved numeric policy and historical source evidence](numeric-blocker.md)
 - [Node 24 filesystem APIs](https://nodejs.org/docs/latest-v24.x/api/fs.html)
+- [Node 24.16.0 libuv Windows rename implementation](https://github.com/nodejs/node/blob/v24.16.0/deps/uv/src/win/fs.c)
+- [Windows error-to-libuv mappings](https://github.com/nodejs/node/blob/v24.16.0/deps/uv/src/win/error.c)
+- [Windows sharing/delete access (also required for rename)](https://learn.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-createfilew)
 
 Compiler/CLI/golden tests and the independent arithmetic model are **not EEL2
 execution**, audio renders, automation recordings, GUI checks or performance

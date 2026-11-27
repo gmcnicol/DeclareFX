@@ -6,9 +6,10 @@ Declare-authored interfaces for standalone JSFX, preserving hand-written EEL2 DS
 explicit CLI, safe regeneration and the complete gain example/golden are
 implemented. The initial three-platform [CI checkpoint](docs/proof-evidence.md)
 **passed at `8b89ec6`**; independent Standards/Spec review found one static
-fractional-proof defect, now fixed with public regressions. **A new exact-SHA
-matrix run for this fix is pending merge/revalidation.** No EEL2 execution or
-REAPER/audio validation is claimed; [host handoff #15](https://github.com/gmcnicol/DeclareFX/issues/15)
+fractional-proof defect, now fixed with public regressions. **The post-review
+run at `e680212` failed Windows concurrent-reader publication. Bounded rename
+retries are implemented; a new actual exact-SHA matrix is pending merge.**
+No EEL2 execution or REAPER/audio validation is claimed; [host handoff #15](https://github.com/gmcnicol/DeclareFX/issues/15)
 remains entirely UNRUN. The [explicit numeric amendment](https://github.com/gmcnicol/DeclareFX/issues/6#issuecomment-7219873850)
 resolves the [numeric policy blocker](docs/numeric-blocker.md): UI arithmetic uses
 native EEL2 underflow, not promised JavaScript parity. Generated executable numbers
