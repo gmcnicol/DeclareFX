@@ -1,0 +1,4 @@
+* text=auto eol=lf
+vendor/declare/declare-compiler.js -text
+vendor/declare/LICENSE.* -text
+vendor/declare/ThirdPartyNoticeText.typescript.txt -text

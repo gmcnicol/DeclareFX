@@ -1,0 +1,31 @@
+{
+  "repository": "https://github.com/davidtemkin/declarelang",
+  "revision": "cc62d9dfa0b39f84e20480ff28bed8107d986331",
+  "sourcePath": "bundles/declare-compiler.js",
+  "sha256": "f5694d953e8e2df6abf51c113f465904b3fe5797665a4e66206dc16bf533ba3b",
+  "bytes": 5175114,
+  "modified": false,
+  "decision": "https://github.com/gmcnicol/DeclareFX/issues/2#issuecomment-7193405886",
+  "notices": [
+    {
+      "path": "LICENSE.declare",
+      "source": "https://raw.githubusercontent.com/davidtemkin/declarelang/cc62d9dfa0b39f84e20480ff28bed8107d986331/LICENSE",
+      "sha256": "3915eef925b62fa92f457b8b690052f9f8e44ead9d72245ef101ae2309961034"
+    },
+    {
+      "path": "LICENSE.typescript.txt",
+      "source": "https://raw.githubusercontent.com/microsoft/TypeScript/v5.9.3/LICENSE.txt",
+      "sha256": "a7d00bfd54525bc694b6e32f64c7ebcf5e6b7ae3657be5cc12767bce74654a47"
+    },
+    {
+      "path": "ThirdPartyNoticeText.typescript.txt",
+      "source": "https://raw.githubusercontent.com/microsoft/TypeScript/v5.9.3/ThirdPartyNoticeText.txt",
+      "sha256": "1af3c68039c57e539422da82a4faada506ce6d0ea6f90e0b699d02dbcdb7a90c"
+    },
+    {
+      "path": "LICENSE.esbuild",
+      "source": "https://raw.githubusercontent.com/evanw/esbuild/v0.28.1/LICENSE.md",
+      "sha256": "b40ec5baec7bb34fa5b1c09521fa3cd52d5fad7adafed74932a2010d3612a681"
+    }
+  ]
+}
