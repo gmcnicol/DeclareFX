@@ -1,7 +1,10 @@
 # DeclareFX first-slice implementation spec
 
-Status: pinned-input/build groundwork and checked subset-v1 validation/lowering
-implemented; JSFX emitter and CLI not implemented yet. This is the ordered implementation handoff for the
+Status: pinned inputs/build, checked subset-v1 lowering, standalone JSFX
+emission and explicit CLI implemented with local automated coverage. Three-OS
+and real-host evidence remain pending. **Ticket 13 is blocked on the unresolved
+[finite-subnormal mechanism](numeric-blocker.md); full numeric conformance is not
+established.** This is the ordered implementation handoff for the
 [architecture and proof map](https://github.com/gmcnicol/DeclareFX/issues/1), not
 a claim of JSFX or REAPER success.
 
@@ -51,7 +54,8 @@ these definitions to fit implementation storage.
   `pnpm verify:vendor`. Build cleans only `dist/`, then runs `tsc` to Node ESM
   (ES2022/NodeNext, strict checking, LF). Tests are compiled TypeScript executed
   with Node's built-in test/assert. The [compiler interface](compiler.md) returns
-  a validated static target program; no effect emitter or CLI is present yet.
+  a validated static target program. The separate [effect compiler and CLI](emission.md)
+  emit and safely publish standalone output.
 - Source/bundle parity and a clean upstream rebuild are explicitly **not**
   prerequisites and remain unverified. Do not replace the selected artifact or
   silently regenerate a lockfile to make an incompatible toolchain work.
@@ -67,7 +71,7 @@ quoted test globs let Node expand them portably.
 
 ## Intended compiler input/output
 
-The target build command (to be delivered in the CLI ticket) is:
+The build command (available locally as `pnpm declarefx` after building) is:
 
 ```sh
 declarefx build ui.declare --bindings gain.bindings.json --dsp gain.dsp.eel --out gain.jsfx
@@ -109,7 +113,8 @@ compiler-owned provenance header, stable `slider1` gain identity/default/range,
 parameter preparation before author `@block`, preserved author `@sample`, and
 native generated `@gfx` drawing/interaction. No runtime imports, JavaScript,
 browser, compiler, indexed-memory allocator or generated UI work in audio
-sections. This description is not an implemented output or a golden fixture.
+sections. The implemented [example/golden](../examples/gain.jsfx) and
+[emission interface](emission.md) provide the complete artifact.
 UI/DSP/binding bytes must participate in deterministic build identity; no
 absolute machine paths, timestamps or unstable traversal. Publication is atomic
 only after complete validation, with resolved input/output aliases and unmarked
@@ -126,8 +131,8 @@ compatibility tests. Expose target results/diagnostics, not upstream objects.
 | Vendored input/build (present) | Exact artifact, provenance, notices, frozen tools, ESM compilation | `test/vendor.test.ts`; build/check/test commands |
 | Upstream compatibility (present) | Non-enumerable checked tree, library-free literal example, type failure and source position | `test/upstream.test.ts`; this is external characterization, not target validation |
 | Frontend/lowering (present; see [interface](compiler.md)) | Reject includes/scripts before loading/execution; mandatory checked frontend for accepted source; inspect every authored/implicit body; one restricted AST path; strict binding validation; static slot/dependency order and finite-value safety | Compiler interface valid/invalid fixtures, warnings, source diagnostics, cycles/types/bindings/text/resource limits |
-| Emitter/DSP assembly (later) | Deterministic JSFX, native parameter observation, dirty geometry before hit tests and after edits, relative drag/touch completion, bounded block snapshots; optional `@init`/`@block`, required `@sample`; author lifecycle/symbol/resource checks | Compiler result, full golden bytes, DSP preservation, structural audio-section checks and independent arithmetic model (not EEL2 execution) |
-| CLI/publication (later) | Read explicit inputs, stable errors/exit codes, input/output identity safeguards, compiler-owned marker, successful-build-only atomic replacement | Real subprocess tests: success/failure/help/version, aliases, unmarked output refusal, previous-output preservation, distinct checkout directories |
+| Emitter/DSP assembly (present) | Deterministic JSFX, native parameter observation, dirty geometry before hit tests and after edits, relative drag/touch completion, bounded block snapshots; optional `@init`/`@block`, required `@sample`; author lifecycle/symbol/resource checks | Compiler result, full golden bytes, DSP preservation, structural audio-section checks and independent arithmetic model (not EEL2 execution) |
+| CLI/publication (present) | Read explicit inputs, stable errors/exit codes, input/output identity safeguards, compiler-owned marker, successful-build-only atomic replacement | Real subprocess tests: success/failure/help/version, aliases, unmarked output refusal, previous-output preservation, distinct checkout directories |
 | Evidence/handoff (last) | Real Linux/macOS/Windows runs, deterministic golden comparison, exact tool/runner versions; actual host evidence or precise unrun checklist | CI artifacts/logs and separate REAPER numerical/manual evidence |
 
 Do not weaken finite-number rules (including short-circuiting, safe native gain,
@@ -151,7 +156,7 @@ acceptance obligation, not proven merely by emitting plausible calls.
    execute three-OS automated gates, update this matrix with actual artifacts,
    record host checks/unrun gates, and create only concrete exposed follow-ups.
 
-## Evidence-status matrix (groundwork checkpoint)
+## Evidence-status matrix (local implementation checkpoint)
 
 | Gate | Status / evidence |
 | --- | --- |
@@ -161,7 +166,7 @@ acceptance obligation, not proven merely by emitting plausible calls.
 | Upstream frontend example/type rejection | **Pass locally**: checked tree and original error location; not DeclareFX subset validation |
 | Upstream clean rebuild / source-to-bundle parity | **Unrun; not required** by selected artifact route |
 | Target validation/lowering | **Implemented locally**: public compiler tests cover the literal example, operators, checked frontend, rejection, bindings, cycles, finite arithmetic, resources and original diagnostics; structural/static analysis only |
-| JSFX emitter, CLI, full golden, safe publication | **Not implemented yet**; owned by the next execution ticket |
+| JSFX emitter, CLI, full golden, safe publication | **Implemented and structurally tested locally; ticket blocked**: [effect compiler/CLI](emission.md), [full golden](../examples/gain.jsfx), public compiler/real-subprocess/atomic-reader tests. [Finite-subnormal preservation](numeric-blocker.md) unresolved; no EEL2 execution or full numeric conformance claim |
 | Linux/macOS/Windows end-to-end CI and golden identity | **Unrun**; owned by the evidence ticket; local Linux results are not three-platform validation |
 | REAPER standalone load, stereo renders and automation/UI/reload | **Unrun**; target REAPER 7.02+ is a floor, not a validated range |
 | Performance | **Unmeasured**; no CPU, audio, UI or latency claims |

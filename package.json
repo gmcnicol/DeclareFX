@@ -10,7 +10,11 @@
     "node": "24.16.0",
     "pnpm": "12.23.0"
   },
+  "bin": {
+    "declarefx": "dist/src/cli.js"
+  },
   "scripts": {
+    "declarefx": "node dist/src/cli.js",
     "clean": "node --input-type=module -e \"import { rmSync } from 'node:fs'; rmSync('dist', { recursive: true, force: true });\"",
     "build": "pnpm clean && tsc",
     "check": "tsc --noEmit",

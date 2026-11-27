@@ -20,12 +20,12 @@ if (!result.ok) {
 ```
 
 The interface does not read author files, emit effects, or publish output. Its
-binding input is an already parsed, strict v1 object. The later CLI owns JSON
-parsing and file diagnostics. `filename` supplies diagnostic provenance, not a
+binding input is an already parsed, strict v1 object. `buildEffect` owns JSON parsing; the CLI owns file diagnostics (see
+[standalone emission](emission.md)). `filename` supplies diagnostic provenance, not a
 file to load. Errors return `ok: false` without a program. Diagnostics retain
 upstream codes/warnings and distinguish target unsupported/type/reference/cycle,
 binding, numeric, text and resource failures. Binding errors name a field.
-Diagnostic filenames are caller context; a later emitter must not serialize
+Diagnostic filenames are caller context; the emitter does not serialize
 machine-dependent diagnostic paths into generated output or build identity.
 Target body errors use the original containing expression's opening brace;
 rewritten offsets are never presented as precise original inner spans.
@@ -103,8 +103,8 @@ Compiler tests exercise the public result and diagnostics, including the full
 literal-label example, every permitted operator, invalid/erased syntax, checked
 frontend errors/warnings, scopes, cycles, strict bindings, text and resource
 limits. They are target-structure and compile-time arithmetic checks, **not EEL2
-execution**. This module does not validate or load DSP. DSP restrictions,
-standalone emission, host notification/gesture behavior, safe publication,
-end-to-end determinism, three-platform CI and actual REAPER/audio/UI checks
-belong to the subsequent tickets. No host or performance claim follows from a
+execution**. This module does not validate or load DSP. DSP restrictions, standalone emission, generated host notification/gesture
+handling, safe publication and end-to-end determinism are covered by the
+[effect compiler and CLI](emission.md). Three-platform CI and actual
+REAPER/audio/UI checks remain separate evidence gates. No host or performance claim follows from a
 successful target program.
