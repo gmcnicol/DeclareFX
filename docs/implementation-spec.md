@@ -1,7 +1,7 @@
 # DeclareFX first-slice implementation spec
 
-Status: pinned-input/build groundwork implemented; target compiler and CLI not
-implemented yet. This is the ordered implementation handoff for the
+Status: pinned-input/build groundwork and checked subset-v1 validation/lowering
+implemented; JSFX emitter and CLI not implemented yet. This is the ordered implementation handoff for the
 [architecture and proof map](https://github.com/gmcnicol/DeclareFX/issues/1), not
 a claim of JSFX or REAPER success.
 
@@ -50,8 +50,8 @@ these definitions to fit implementation storage.
 - `pnpm install --frozen-lockfile`; `pnpm build`; `pnpm check`; `pnpm test`;
   `pnpm verify:vendor`. Build cleans only `dist/`, then runs `tsc` to Node ESM
   (ES2022/NodeNext, strict checking, LF). Tests are compiled TypeScript executed
-  with Node's built-in test/assert. Groundwork currently compiles tests only;
-  there is deliberately no fake production compiler or CLI.
+  with Node's built-in test/assert. The [compiler interface](compiler.md) returns
+  a validated static target program; no effect emitter or CLI is present yet.
 - Source/bundle parity and a clean upstream rebuild are explicitly **not**
   prerequisites and remain unverified. Do not replace the selected artifact or
   silently regenerate a lockfile to make an incompatible toolchain work.
@@ -125,7 +125,7 @@ compatibility tests. Expose target results/diagnostics, not upstream objects.
 | --- | --- | --- |
 | Vendored input/build (present) | Exact artifact, provenance, notices, frozen tools, ESM compilation | `test/vendor.test.ts`; build/check/test commands |
 | Upstream compatibility (present) | Non-enumerable checked tree, library-free literal example, type failure and source position | `test/upstream.test.ts`; this is external characterization, not target validation |
-| Frontend/lowering (next) | Reject includes/scripts before loading/execution; mandatory checked frontend for accepted source; inspect every authored/implicit body; one restricted AST path; strict binding validation; static slot/dependency order and finite-value safety | Compiler interface valid/invalid fixtures, warnings, source diagnostics, cycles/types/bindings/text/resource limits |
+| Frontend/lowering (present; see [interface](compiler.md)) | Reject includes/scripts before loading/execution; mandatory checked frontend for accepted source; inspect every authored/implicit body; one restricted AST path; strict binding validation; static slot/dependency order and finite-value safety | Compiler interface valid/invalid fixtures, warnings, source diagnostics, cycles/types/bindings/text/resource limits |
 | Emitter/DSP assembly (later) | Deterministic JSFX, native parameter observation, dirty geometry before hit tests and after edits, relative drag/touch completion, bounded block snapshots; optional `@init`/`@block`, required `@sample`; author lifecycle/symbol/resource checks | Compiler result, full golden bytes, DSP preservation, structural audio-section checks and independent arithmetic model (not EEL2 execution) |
 | CLI/publication (later) | Read explicit inputs, stable errors/exit codes, input/output identity safeguards, compiler-owned marker, successful-build-only atomic replacement | Real subprocess tests: success/failure/help/version, aliases, unmarked output refusal, previous-output preservation, distinct checkout directories |
 | Evidence/handoff (last) | Real Linux/macOS/Windows runs, deterministic golden comparison, exact tool/runner versions; actual host evidence or precise unrun checklist | CI artifacts/logs and separate REAPER numerical/manual evidence |
@@ -160,7 +160,8 @@ acceptance obligation, not proven merely by emitting plausible calls.
 | Repeated/distinct-directory TypeScript builds | **Pass locally**: equal emitted bytes; groundwork only, not generated JSFX determinism |
 | Upstream frontend example/type rejection | **Pass locally**: checked tree and original error location; not DeclareFX subset validation |
 | Upstream clean rebuild / source-to-bundle parity | **Unrun; not required** by selected artifact route |
-| Target validator/emitter, CLI, full golden, safe publication | **Not implemented yet**; owned by the next two execution tickets |
+| Target validation/lowering | **Implemented locally**: public compiler tests cover the literal example, operators, checked frontend, rejection, bindings, cycles, finite arithmetic, resources and original diagnostics; structural/static analysis only |
+| JSFX emitter, CLI, full golden, safe publication | **Not implemented yet**; owned by the next execution ticket |
 | Linux/macOS/Windows end-to-end CI and golden identity | **Unrun**; owned by the evidence ticket; local Linux results are not three-platform validation |
 | REAPER standalone load, stereo renders and automation/UI/reload | **Unrun**; target REAPER 7.02+ is a floor, not a validated range |
 | Performance | **Unmeasured**; no CPU, audio, UI or latency claims |
