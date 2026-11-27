@@ -19,7 +19,8 @@
     "build": "pnpm clean && tsc",
     "check": "tsc --noEmit",
     "test": "pnpm build && node --test \"dist/test/**/*.test.js\"",
-    "verify:vendor": "pnpm build && node --test dist/test/vendor.test.js"
+    "verify:vendor": "pnpm build && node --test dist/test/vendor.test.js",
+    "evidence": "node scripts/evidence.mjs"
   },
   "dependencies": {
     "typescript": "5.9.3"

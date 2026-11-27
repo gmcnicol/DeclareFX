@@ -3,7 +3,9 @@
 Scope: [Establish pinned compiler inputs and reproducible TypeScript build](https://github.com/gmcnicol/DeclareFX/issues/11).
 This checkpoint proves the selected inputs/build, not the DeclareFX target
 compiler, CLI or generated effect. The [implementation spec](implementation-spec.md)
-tracks subsequent gates. No research branch was merged.
+tracks subsequent gates. **Historical checkpoint only:** its four-test counts
+and then-missing compiler/CLI are not the current state; see
+[current proof evidence](proof-evidence.md). No research branch was merged.
 
 ## Environment and actual commands
 

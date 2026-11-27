@@ -2,7 +2,8 @@
 
 Status: pinned inputs/build, checked subset-v1 lowering, standalone JSFX
 emission and explicit CLI implemented with local automated coverage. Three-OS
-and real-host evidence and final Standards/Spec review remain pending. The
+CI/evidence automation is implemented but awaiting its actual integration run;
+real-host evidence and final Standards/Spec review remain pending. The
 [explicit numeric amendment](https://github.com/gmcnicol/DeclareFX/issues/6#issuecomment-7219873850)
 resolves the [numeric policy blocker](numeric-blocker.md), not those evidence
 gates. This is the ordered implementation handoff for the
@@ -61,7 +62,8 @@ these definitions to fit implementation storage.
   embedded TypeScript and separately installed packages. No whole upstream tree,
   compiler downloads during builds, asset library or bundler.
 - `pnpm install --frozen-lockfile`; `pnpm build`; `pnpm check`; `pnpm test`;
-  `pnpm verify:vendor`. Build cleans only `dist/`, then runs `tsc` to Node ESM
+  `pnpm verify:vendor`; `pnpm evidence` (clean relocated installs/builds, versions,
+  hashes and complete golden artifacts). Build cleans only `dist/`, then runs `tsc` to Node ESM
   (ES2022/NodeNext, strict checking, LF). Tests are compiled TypeScript executed
   with Node's built-in test/assert. The [compiler interface](compiler.md) returns
   a validated static target program. The separate [effect compiler and CLI](emission.md)
@@ -166,29 +168,27 @@ acceptance obligation, not proven merely by emitting plausible calls.
    execute three-OS automated gates, update this matrix with actual artifacts,
    record host checks/unrun gates, and create only concrete exposed follow-ups.
 
-## Evidence-status matrix (local implementation checkpoint)
+## Evidence-status matrix
+
+The detailed, maintained matrix and artifact collection sequence are in
+[proof evidence and handoff](proof-evidence.md), not the historical
+[groundwork checkpoint](groundwork-evidence.md).
 
 | Gate | Status / evidence |
 | --- | --- |
-| Exact upstream artifact/notices | **Pass**: checkout identity and SHA-256 verified; `pnpm verify:vendor` checks bundle bytes and notice hashes |
-| Frozen install, ESM build, check, compiled tests | **Pass locally**: Linux x64, Node 24.16.0 / pnpm 12.23.0 / TypeScript 5.9.3; four tests. See [groundwork evidence](groundwork-evidence.md) for commands/red-green results |
-| Repeated/distinct-directory TypeScript builds | **Pass locally**: equal emitted bytes; groundwork only, not generated JSFX determinism |
-| Upstream frontend example/type rejection | **Pass locally**: checked tree and original error location; not DeclareFX subset validation |
-| Upstream clean rebuild / source-to-bundle parity | **Unrun; not required** by selected artifact route |
-| Target validation/lowering | **Implemented locally**: public compiler tests cover the literal example, operators, checked frontend, rejection, bindings, cycles, finite arithmetic, resources and original diagnostics; structural/static analysis only |
-| JSFX emitter, CLI, full golden, safe publication | **Implemented and structurally tested locally; numeric policy blocker resolved by explicit amendment**: [effect compiler/CLI](emission.md), [full golden](../examples/gain.jsfx), public compiler/real-subprocess/atomic-reader tests. [Historical numeric evidence](numeric-blocker.md); no EEL2 execution or host parity claim |
-| Linux/macOS/Windows end-to-end CI and golden identity | **Unrun**; owned by the evidence ticket; local Linux results are not three-platform validation |
-| REAPER standalone load, stereo renders and automation/UI/reload | **Unrun**; target REAPER 7.02+ is a floor, not a validated range |
+| Pinned artifact/notices; frozen install/build/check/tests/vendor | **Pass locally** on Linux x64 with exact reference tools; 42/42 compiled tests, 2/2 vendor checks |
+| Compiler/CLI, full golden, safe publication, repeated clean relocated build identity | **Pass locally**, including two fresh frozen installs/builds and complete output/hash comparison; structural/static/model evidence, not EEL2 execution |
+| Linux/macOS/Windows workflow and artifact comparison | **Implemented; awaiting actual integration CI run**. No hosted results or runner versions claimed yet |
+| Upstream clean rebuild / source-to-bundle parity | **Unrun; not required** by the selected artifact route |
+| REAPER load, numerical audio, automation/gestures/interruption, UI/HiDPI/reload | **All UNRUN**; [complete protocol and per-platform status](host-validation.md). Handoff issue drafted for coordinator, not yet created |
 | Performance | **Unmeasured**; no CPU, audio, UI or latency claims |
-| Final Standards/Spec review | **Pending**; local automated checks do not replace the two-axis review |
+| Final independent Standards/Spec review | **Pending coordinator**, after actual CI evidence and any fix/retest pass |
 
-Host handoff must record exact REAPER/OS/architecture, source/output hashes,
-sample rate, actual processing block size and display scale. The canonical CLI
-contract requires steady-state gain 0/1/2 stereo renders at 44.1/48 kHz and blocks
-64/512 with absolute error <= 1e-6, plus host/UI automation, stationary drag and
-rebasing, release/focus/closure/invalid-size cancellation, resize/HiDPI, closed-UI
-and offline audio, reload and author DSP preservation. Keep numerical renders,
-manual GUI checks and compiler structural/model tests separate. If no host is
-available, the handoff can say **compiler proof; host validation pending** only
-once automated proof gates actually pass; it cannot say release-ready or proven
-audio/UI. Do not automatically provision a host or invent missing CI evidence.
+The native UI-underflow policy blocker is resolved by the explicit amendment;
+actual host validation is not. Preserve the numeric guards and plain-decimal
+emission, not an obsolete gradual-underflow requirement. Target REAPER 7.02+
+is a floor, not a validated range. No automatic host provision/launch, invented
+CI evidence or claim that source/header/golden checks execute EEL2. Once actual
+automated gates pass, the allowed final claim remains **compiler proof; host
+validation pending** unless the separate real-host protocol has been executed.
+No release-ready cross-platform claim follows from the compiler matrix.

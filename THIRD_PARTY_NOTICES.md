@@ -35,7 +35,9 @@ Audit basis:
 - No fonts, demos, GPU/browser runtime bundles, component library files,
   templates, images or upstream build tools were separately copied. Compiler-side
   helpers already inside the required bundle remain covered by the inventory.
-  No third-party EEL2 template or generated effect is included at this stage.
+  The EEL2 emitter and gain DSP are authored in this repository; the generated
+  gain example contains no copied upstream compiler/runtime, font or third-party
+  EEL2 template. Generated output does not need the compiler bundle at runtime.
 
 This is a shipped-material review, not a clean upstream rebuild, source/bundle
 parity proof or exhaustive historical legal audit. The compiler closure module's
@@ -51,7 +53,7 @@ The frozen [pnpm lockfile](pnpm-lock.yaml) records integrity and exact versions.
 
 | Package | Use | Licence / retained by installed package |
 | --- | --- | --- |
-| `typescript@5.9.3` | `tsc` build/check; AST parser for the subsequent lowerer | Apache-2.0; `typescript/LICENSE.txt` and `typescript/ThirdPartyNoticeText.txt` (also retained above) |
+| `typescript@5.9.3` | `tsc` build/check; AST parser for the restricted lowerer | Apache-2.0; `typescript/LICENSE.txt` and `typescript/ThirdPartyNoticeText.txt` (also retained above) |
 | `@types/node@24.10.1` | Development-only Node API declarations | MIT; DefinitelyTyped contributors/attribution in the package's README and declaration files; [source](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/node) |
 | `undici-types@7.16.0` | Transitive development-only dependency of `@types/node` | MIT; installed package `LICENSE`; [source](https://github.com/nodejs/undici/tree/v7.16.0/types) |
 
